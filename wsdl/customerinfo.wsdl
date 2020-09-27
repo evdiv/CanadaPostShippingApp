@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="customerinfo" targetNamespace="http://www.canadapost.ca/ws/soap/customer" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.canadapost.ca/ws/soap/customer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.canadapost.ca/ws/soap/customer">
+
+			<xsd:element name="get-customer-information-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="customer-number" type="tns:CustomerIDType" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-customer-information-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="customer">
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="tns:CustomerBaseType">
+										<xsd:sequence>
+											<xsd:element name="mobos" type="tns:MobosType" minOccurs="0" />
+										</xsd:sequence>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-mobo-customer-information-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="customer-number" type="tns:CustomerIDType" />
+						<xsd:element name="mobo" type="tns:CustomerIDType" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-mobo-customer-information-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="behalf-of-customer">
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="tns:CustomerBaseType" />
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="CustomerBaseType">
+				<xsd:sequence>
+					<xsd:element name="customer-number" type="tns:CustomerIDType" />
+					<xsd:element name="contracts" type="tns:ContractsType" minOccurs="0" />
+					<xsd:element name="authorized-payers" type="tns:AuthorizedPayersType" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="MobosType">
+				<xsd:sequence>
+					<xsd:element name="mobo" minOccurs="0" maxOccurs="unbounded" type="tns:CustomerIDType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="LinkType">
+				<xsd:attribute name="href" type="xsd:anyURI" use="required" />
+				<xsd:attribute name="rel" type="tns:RelType" use="required" />
+				<xsd:attribute name="index" type="xsd:positiveInteger" use="optional" />
+				<xsd:attribute name="media-type" type="xsd:normalizedString" use="required" />
+			</xsd:complexType>
+
+			<xsd:simpleType name="RelType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="behalf-of-customer" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="CustomerIDType">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="\d{1,10}" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="ContractsType">
+				<xsd:sequence>
+					<xsd:element name="contract-id" type="tns:ContractType" minOccurs="1" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="ContractType">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="\d{1,10}" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="AuthorizedPayersType">
+				<xsd:sequence>
+					<xsd:element name="payer" type="tns:PayerType" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="PayerType">
+				<xsd:sequence>
+					<xsd:element name="payer-number" type="tns:PayerNumberType" />
+					<xsd:element name="methods-of-payment" type="tns:MethodsOfPaymentType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="PayerNumberType">
+				<xsd:restriction base="xsd:normalizedString">
+					<xsd:pattern value="\d{1,10}" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="MethodsOfPaymentType">
+				<xsd:sequence>
+					<xsd:element name="method-of-payment" type="tns:MethodOfPaymentType" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="MethodOfPaymentType">
+				<xsd:restriction base="xsd:normalizedString">
+					<xsd:maxLength value="15" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="messages">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" maxOccurs="unbounded" name="message">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="code" type="xsd:string" />
+								<xsd:element name="description" type="xsd:string" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="locale">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="([eE][nN]|[fF][rR])" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			
+			<xsd:simpleType name="PlatformIDType">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="\d{1,10}" />
+				</xsd:restriction>
+			</xsd:simpleType>			
+
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="GetCustomerInformationRequest">
+		<wsdl:part name="body" element="tns:get-customer-information-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCustomerInformationResponse">
+		<wsdl:part name="body" element="tns:get-customer-information-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetMoboCustomerInformationRequest">
+		<wsdl:part name="body" element="tns:get-mobo-customer-information-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetMoboCustomerInformationResponse">
+		<wsdl:part name="body" element="tns:get-mobo-customer-information-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="CustomerInfoPortType">
+		<wsdl:operation name="GetCustomerInformation">
+			<wsdl:input message="tns:GetCustomerInformationRequest"></wsdl:input>
+			<wsdl:output message="tns:GetCustomerInformationResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetMoboCustomerInformation">
+			<wsdl:input message="tns:GetMoboCustomerInformationRequest"></wsdl:input>
+			<wsdl:output message="tns:GetMoboCustomerInformationResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="CustomerInfo" type="tns:CustomerInfoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetCustomerInformation">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/customer/GetCustomerInformation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetMoboCustomerInformation">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/customer/GetMoboCustomerInformation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="CustomerInfoService">
+		<wsdl:port name="CustomerInfoPort" binding="tns:CustomerInfo">
+			<soap:address location="https://ct.soa-gw.canadapost.ca/rs/soap/customerinfo" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

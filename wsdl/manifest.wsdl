@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="manifest" targetNamespace="http://www.canadapost.ca/ws/soap/manifest/v8" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.canadapost.ca/ws/soap/manifest/v8" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+    <wsdl:documentation>
+        - Get Manifest Details  returns credit card receipt details or supplier account receipt details.
+        - changed contract-id from mandatory to optional in ManifestDetailsType.
+        - added customer-request-id to ShipmentTransmitSetType and ManifestType.
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.canadapost.ca/ws/soap/manifest/v8">
+
+            <xsd:element name="transmit-shipments-request">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="mailed-by" type="tns:CustomerIDType" />
+                        <xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+                        <xsd:element name="locale" type="tns:locale" minOccurs="0" />
+                        <xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+                        <xsd:element name="transmit-set" type="tns:ShipmentTransmitSetType" />
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="transmit-shipments-response">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="manifests" type="tns:ManifestsType" />
+                        <xsd:element name="messages" type="tns:messages" />
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="get-manifest-artifact-id-request">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="mailed-by" type="tns:CustomerIDType" />
+                        <xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+                        <xsd:element name="locale" type="tns:locale" minOccurs="0" />
+                        <xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+                        <xsd:element name="manifest-id" type="tns:ShipmentIDType" />
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="get-manifest-artifact-id-response">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="manifest" type="tns:ManifestType" />
+                        <xsd:element name="messages" type="tns:messages" />
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="get-manifest-details-request">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="mailed-by" type="tns:CustomerIDType" />
+                        <xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+                        <xsd:element name="locale" type="tns:locale" minOccurs="0" />
+                        <xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+                        <xsd:element name="manifest-id" type="tns:ShipmentIDType" />
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="get-manifest-details-response">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="manifest-details" type="tns:ManifestDetailsType" />
+                        <xsd:element name="messages" type="tns:messages" />
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="get-manifests-request">
+                <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="mailed-by" type="tns:CustomerIDType" />
+                        <xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+                        <xsd:element name="locale" type="tns:locale" minOccurs="0" />
+                        <xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+                        <xsd:element name="start" type="xsd:date" />
+                        <xsd:element name="end" type="xsd:date" minOccurs="0" />
+                    </xsd:all>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="get-manifests-response">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="manifests" type="tns:ManifestsType" />
+                        <xsd:element name="messages" type="tns:messages" />
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:complexType name="ShipmentTransmitSetType">
+                <xsd:all>
+                    <xsd:element name="customer-request-id" type="tns:CustomerRequestIdType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>For future use</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="group-ids" type="tns:GroupIDListType" />
+                    <xsd:element name="cpc-pickup-indicator" type="xsd:boolean" fixed="true" minOccurs="0"/>
+                    <xsd:element name="requested-shipping-point" type="tns:PostalCodeType" minOccurs="0"/>
+                    <xsd:element name="shipping-point-id" type="tns:OutletIDType" minOccurs="0" />
+                    <xsd:element name="detailed-manifests" type="xsd:boolean" />
+                    <xsd:element name="method-of-payment" type="tns:MethodOfPaymentType" />
+                    <xsd:element name="manifest-address" type="tns:ManifestAddressType" />
+                    <xsd:element name="customer-reference" type="tns:CustomerReferenceType" minOccurs="0" />
+                    <xsd:element name="excluded-shipments" type="tns:ExcludedShipmentsType" minOccurs="0" />
+                </xsd:all>
+            </xsd:complexType>
+
+            <xsd:complexType name="GroupIDListType">
+                <xsd:sequence>
+                    <xsd:element name="group-id" type="tns:GroupIDType" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:simpleType name="GroupIDType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="32" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:complexType name="ExcludedShipmentsType">
+                <xsd:sequence>
+                    <xsd:element name="shipment-id" type="tns:ShipmentIDType" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:simpleType name="ShipmentIDType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="32" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CustomerReferenceType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="12" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:complexType name="ManifestsType">
+                <xsd:sequence>
+                    <xsd:element name="manifest-id" type="tns:ShipmentIDType" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="ManifestType">
+                <xsd:all>
+                    <xsd:element name="customer-request-id" type="tns:CustomerRequestIdType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>For future use</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="po-number" type="tns:PoNumberType" />
+                    <xsd:element name="artifact-id" type="tns:ArtifactIdType" />
+                </xsd:all>
+            </xsd:complexType>
+
+            <xsd:complexType name="ManifestDetailsType">
+                <xsd:all>
+                    <xsd:element name="po-number" type="tns:PoNumberType" />
+                    <xsd:element name="final-shipping-point" type="tns:PostalCodeType" />
+                    <xsd:element name="shipping-point-name">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:maxLength value="35" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="shipping-point-id" type="tns:OutletIDType" />
+                    <xsd:element name="cpc-pickup-indicator" type="xsd:boolean" fixed="true" minOccurs="0"/>
+                    <xsd:element name="mailed-by-customer" type="tns:CustomerIDType" />
+                    <xsd:element name="mailed-on-behalf-of" type="tns:CustomerIDType" />
+                    <xsd:element name="paid-by-customer" type="tns:CustomerIDType" />
+                    <xsd:element name="customer-ref" type="xsd:normalizedString" minOccurs="0" />
+                    <xsd:element name="manifest-date" type="xsd:date" />
+                    <xsd:element name="manifest-time">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:pattern value="\d{2}:\d{2} [a-zA-Z ]+" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="contract-id" type="tns:ContractIDType" minOccurs="0"/>
+                    <xsd:element name="method-of-payment" type="tns:MethodOfPaymentType" />
+                    <xsd:element name="cc-receipt-details" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:all>
+                                <xsd:element name="merchant-name" type="tns:CcNameType" />
+                                <xsd:element name="merchant-url">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:normalizedString">
+                                            <xsd:maxLength value="60" />
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="name-on-card" type="tns:CcNameType" minOccurs="0" />
+                                <xsd:element name="auth-code" type="tns:CcAuthorizationCodeType" />
+                                <xsd:element name="auth-timestamp" type="xsd:dateTime" />
+                                <xsd:element name="card-type" type="tns:CcType" />
+                                <xsd:element name="currency" type="tns:CurrencyType" />
+                                <xsd:element name="transaction-type">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:normalizedString">
+                                            <xsd:maxLength value="44" />
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:all>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="supplier-account-receipt-details" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:all>
+                                <xsd:element name="merchant-name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:normalizedString">
+                                            <xsd:maxLength value="44" />
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="merchant-url">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:normalizedString">
+                                            <xsd:maxLength value="60" />
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="auth-code" type="tns:AuthorizationCodeType" />
+                                <xsd:element name="auth-timestamp" type="xsd:dateTime" />
+                                <xsd:element name="supplier-id" type="xsd:normalizedString" />
+                                <xsd:element name="currency" type="tns:CurrencyType" />
+                                <xsd:element name="transaction-type">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:normalizedString">
+                                            <xsd:maxLength value="44" />
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:all>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="manifest-pricing-info" type="tns:ManifestPricingInfoType" />
+                    <xsd:element name="manifest-address" type="tns:ManifestAddressType" />
+                </xsd:all>
+            </xsd:complexType>
+
+            <xsd:complexType name="ManifestPricingInfoType">
+                <xsd:all>
+                    <xsd:element name="base-cost" type="tns:CostTypeAllowsZero" />
+                    <xsd:element name="automation-discount" type="tns:CostTypeAllowsNegative" />
+                    <xsd:element name="options-and-surcharges" type="tns:CostTypeAllowsNegative" />
+                    <xsd:element name="gst" type="tns:CostTypeAllowsZero" />
+                    <xsd:element name="pst" type="tns:CostTypeAllowsZero" />
+                    <xsd:element name="hst" type="tns:CostTypeAllowsZero" />
+                    <xsd:element name="total-due-cpc" type="tns:CostTypeAllowsZero" />
+                </xsd:all>
+            </xsd:complexType>
+
+            <xsd:complexType name="ManifestAddressType">
+                <xsd:all>
+                    <xsd:element name="manifest-company">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:minLength value="1" />
+                                <xsd:maxLength value="44" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="manifest-name" minOccurs="0">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:minLength value="1" />
+                                <xsd:maxLength value="44" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="phone-number" type="tns:PhoneNumberType" />
+                    <xsd:element name="address-details" type="tns:AddressDetailsType" />
+                </xsd:all>
+            </xsd:complexType>
+
+            <xsd:complexType name="AddressDetailsType">
+                <xsd:all>
+                    <xsd:element name="address-line-1">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:minLength value="1" />
+                                <xsd:maxLength value="44" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="address-line-2" minOccurs="0">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:maxLength value="44" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="city">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:minLength value="1" />
+                                <xsd:maxLength value="40" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="prov-state">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:normalizedString">
+                                <xsd:minLength value="1" />
+                                <xsd:maxLength value="2" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="country-code" minOccurs="0">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="CA" />
+                                <xsd:enumeration value="US" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="postal-zip-code" type="tns:PostalCodeOrZipType" />
+                </xsd:all>
+            </xsd:complexType>
+
+            <xsd:simpleType name="ArtifactIdType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:maxLength value="32" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CcType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:enumeration value="MC" />
+                    <xsd:enumeration value="VIS" />
+                    <xsd:enumeration value="AME" />
+                    <xsd:enumeration value="DC" />
+                    <xsd:enumeration value="DIS" />
+                    <xsd:enumeration value="ER" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CcMaskedNumberType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="25" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CcNameType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="40" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CcAuthorizationCodeType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="10" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CurrencyType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="3" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="ProvinceStateOrInternationalType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1" />
+                    <xsd:maxLength value="20" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="PostalCodeOrZipType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="([A-Z]\d[A-Z]\d[A-Z]\d)|(\d{5}(-\d{4})?)" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="PostalCodeType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="[A-Z]\d[A-Z]\d[A-Z]\d" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CountryCodeType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="[a-zA-Z][a-zA-Z]" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="PhoneNumberType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:maxLength value="25" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CustomerIDType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="\d{1,10}" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="ContractIDType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="\d{1,10}" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="MethodOfPaymentType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:maxLength value="15" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="PoNumberType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="[a-zA-Z0-9]{1,10}" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="OutletIDType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:maxLength value="4" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CostTypeAllowsZero">
+                <xsd:restriction base="xsd:decimal">
+                    <xsd:minInclusive value="0" />
+                    <xsd:maxInclusive value="999999.99" />
+                    <xsd:fractionDigits value="2" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CostTypeAllowsNegative">
+                <xsd:restriction base="xsd:decimal">
+                    <xsd:minInclusive value="-999999.99" />
+                    <xsd:maxInclusive value="999999.99" />
+                    <xsd:fractionDigits value="2" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:complexType name="messages">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="message">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="code" type="xsd:string" />
+                                <xsd:element name="description" type="xsd:string" />
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:simpleType name="locale">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="([eE][nN]|[fF][rR])" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="PlatformIDType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="\d{1,10}" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="CustomerRequestIdType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:maxLength value="35" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="AuthorizationCodeType">
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:minLength value="1"/>
+                    <xsd:maxLength value="10" />
+                </xsd:restriction>
+            </xsd:simpleType>
+
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="TransmitShipmentsRequest">
+        <wsdl:part name="body" element="tns:transmit-shipments-request"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="TransmitShipmentsResponse">
+        <wsdl:part name="body" element="tns:transmit-shipments-response"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetManifestArtifactIdRequest">
+        <wsdl:part name="body" element="tns:get-manifest-artifact-id-request"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetManifestArtifactIdResponse">
+        <wsdl:part name="body" element="tns:get-manifest-artifact-id-response"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetManifestDetailsRequest">
+        <wsdl:part name="body" element="tns:get-manifest-details-request"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetManifestDetailsResponse">
+        <wsdl:part name="body" element="tns:get-manifest-details-response"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetManifestsRequest">
+        <wsdl:part name="body" element="tns:get-manifests-request"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetManifestsResponse">
+        <wsdl:part name="body" element="tns:get-manifests-response"></wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="ManifestPortType">
+        <wsdl:operation name="TransmitShipments">
+            <wsdl:input message="tns:TransmitShipmentsRequest"></wsdl:input>
+            <wsdl:output message="tns:TransmitShipmentsResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetManifestArtifactId">
+            <wsdl:input message="tns:GetManifestArtifactIdRequest"></wsdl:input>
+            <wsdl:output message="tns:GetManifestArtifactIdResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetManifestDetails">
+            <wsdl:input message="tns:GetManifestDetailsRequest"></wsdl:input>
+            <wsdl:output message="tns:GetManifestDetailsResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetManifests">
+            <wsdl:input message="tns:GetManifestsRequest"></wsdl:input>
+            <wsdl:output message="tns:GetManifestsResponse"></wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="Manifest" type="tns:ManifestPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="TransmitShipments">
+            <soap:operation soapAction="http://www.canadapost.ca/ws/soap/manifest/v8/TransmitShipments" />
+            <wsdl:input>
+                <wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetManifestArtifactId">
+            <soap:operation soapAction="http://www.canadapost.ca/ws/soap/manifest/v8/GetManifestArtifactId" />
+            <wsdl:input>
+                <wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetManifestDetails">
+            <soap:operation soapAction="http://www.canadapost.ca/ws/soap/manifest/v8/GetManifestDetails" />
+            <wsdl:input>
+                <wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetManifests">
+            <soap:operation soapAction="http://www.canadapost.ca/ws/soap/manifest/v8/GetManifests" />
+            <wsdl:input>
+                <wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="ManifestService">
+        <wsdl:port name="ManifestPort" binding="tns:Manifest">
+            <soap:address location="https://ct.soa-gw.canadapost.ca/rs/soap/manifest/v8" />
+        </wsdl:port>
+    </wsdl:service>
+
+    <wsp:Policy wsu:Id="policy0" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                        <wsp:Policy>
+                            <sp:WssUsernameToken10 />
+                        </wsp:Policy>
+                    </sp:UsernameToken>
+                </sp:SupportingTokens>
+            </wsp:All>
+            <wsp:All>
+                <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                        <wsp:Policy>
+                            <sp:WssUsernameToken11 />
+                        </wsp:Policy>
+                    </sp:UsernameToken>
+                </sp:SupportingTokens>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+
+</wsdl:definitions>

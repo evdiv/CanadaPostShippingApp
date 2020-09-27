@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="openreturn" targetNamespace="http://www.canadapost.ca/ws/soap/openreturn/v2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.canadapost.ca/ws/soap/openreturn/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.canadapost.ca/ws/soap/openreturn/v2">
+
+			<xsd:element name="create-open-return-template-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="mailed-by" type="tns:CustomerIDType" />
+						<xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+						<xsd:element name="open-return" type="tns:OpenReturnType" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="create-open-return-template-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="open-return-info" type="tns:OpenReturnInfoType" />
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieve-next-open-return-artifact-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="mailed-by" type="tns:CustomerIDType" />
+						<xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+						<xsd:element name="template-id" type="tns:TemplateIDType" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieve-next-open-return-artifact-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="artifact-data">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="image" type="xsd:string" />
+									<xsd:element name="mime-type" type="xsd:string" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-open-return-template-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="mailed-by" type="tns:CustomerIDType" />
+						<xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+						<xsd:element name="template-id" type="tns:TemplateIDType" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-open-return-template-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="open-return-info" type="tns:OpenReturnInfoType" />
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-open-return-template-details-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="mailed-by" type="tns:CustomerIDType" />
+						<xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+						<xsd:element name="template-id" type="tns:TemplateIDType" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-open-return-template-details-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="open-return-details" type="tns:OpenReturnDetailsType" />
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="delete-open-return-template-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="mailed-by" type="tns:CustomerIDType" />
+						<xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+						<xsd:element name="template-id" type="tns:TemplateIDType" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="delete-open-return-template-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="delete-template-success" type="xsd:boolean" />
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-open-return-templates-request">
+				<xsd:complexType>
+					<xsd:all>
+						<xsd:element name="mailed-by" type="tns:CustomerIDType" />
+						<xsd:element name="mobo" type="tns:CustomerIDType" minOccurs="0" />
+						<xsd:element name="locale" type="tns:locale" minOccurs="0" />
+						<xsd:element name="platform-id" type="tns:PlatformIDType" minOccurs="0" />
+						<xsd:element name="from" type="xsd:date" minOccurs="0" />
+						<xsd:element name="to" type="xsd:date" minOccurs="0" />
+					</xsd:all>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="get-open-return-templates-response">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="templates" type="tns:OpenReturnTemplatesInfoType" />
+						<xsd:element name="messages" type="tns:messages" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="OpenReturnType">
+				<xsd:all>
+					<xsd:element name="max-number-of-artifacts" type="xsd:positiveInteger" />
+					<xsd:element name="service-code" type="tns:ServiceCodeType" />
+					<xsd:element name="receiver" type="tns:DomesticAddressType" />
+					<xsd:element name="print-preferences" type="tns:PrintPreferencesType" minOccurs="0" />
+					<xsd:element name="settlement-info" type="tns:SettlementInfoType" />
+				</xsd:all>
+			</xsd:complexType>
+
+			<xsd:complexType name="OpenReturnDetailsType">
+				<xsd:all>
+					<xsd:element name="artifacts-remaining" type="xsd:nonNegativeInteger" />
+					<xsd:element name="open-return" type="tns:OpenReturnType" />
+				</xsd:all>
+			</xsd:complexType>
+
+			<xsd:complexType name="OpenReturnInfoType">
+				<xsd:all>
+					<xsd:element name="artifacts-remaining" type="xsd:nonNegativeInteger" />
+					<xsd:element name="template-id" type="tns:TemplateIDType" />
+				</xsd:all>
+			</xsd:complexType>
+
+			<xsd:complexType name="SettlementInfoType">
+				<xsd:all>
+					<xsd:element name="contract-id" type="tns:ContractIDType" />
+				</xsd:all>
+			</xsd:complexType>
+
+			<xsd:complexType name="DomesticAddressType">
+				<xsd:all>
+					<xsd:element name="name" type="tns:ContactNameType" minOccurs="0" />
+					<xsd:element name="company" type="tns:CompanyNameType" minOccurs="0" />
+					<xsd:element name="domestic-address" type="tns:DomesticAddressDetailsType" />
+				</xsd:all>
+			</xsd:complexType>
+
+			<xsd:simpleType name="ContactNameType">
+				<xsd:restriction base="xsd:normalizedString">
+					<xsd:maxLength value="44" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="CompanyNameType">
+				<xsd:restriction base="xsd:normalizedString">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="44" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="DomesticAddressDetailsType">
+				<xsd:all>
+					<xsd:element name="address-line-1">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:normalizedString">
+								<xsd:minLength value="1" />
+								<xsd:maxLength value="44" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="address-line-2" minOccurs="0">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:normalizedString">
+								<xsd:maxLength value="44" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="city">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:normalizedString">
+								<xsd:minLength value="1" />
+								<xsd:maxLength value="40" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="province" type="tns:ProvinceType" />
+					<xsd:element name="postal-code" type="tns:PostalCodeType" />
+				</xsd:all>
+			</xsd:complexType>
+
+			<xsd:complexType name="PrintPreferencesType">
+				<xsd:all>
+					<xsd:element name="output-format" minOccurs="0">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="8.5x11" />
+								<xsd:enumeration value="4x6" />
+								<xsd:enumeration value="3x5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+		            <xsd:element name="customer-input-type" minOccurs="0">
+		                <xsd:simpleType>
+		                    <xsd:restriction base="xsd:token">
+		                        <xsd:maxLength value="20" />
+		                    </xsd:restriction>
+		                </xsd:simpleType>
+		            </xsd:element>
+                    <xsd:element name="encoding" minOccurs="0">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="PDF"/>
+                                <xsd:enumeration value="ZPL"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+					<xsd:element name="show-packing-instructions" type="xsd:boolean" minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+
+			<xsd:complexType name="OpenReturnTemplatesInfoType">
+				<xsd:sequence>
+					<xsd:element name="template-id" minOccurs="0" maxOccurs="unbounded" type="tns:TemplateIDType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="TemplateIDType">
+				<xsd:restriction base="xsd:normalizedString">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="32" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="PostalCodeType">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="[A-Z]\d[A-Z]\d[A-Z]\d" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="ProvinceType">
+				<xsd:restriction base="xsd:normalizedString">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="2" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="CustomerIDType">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="\d{1,10}" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="ContractIDType">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="\d{1,10}" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="ServiceCodeType">
+				<xsd:restriction base="xsd:normalizedString">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="32" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="messages">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" maxOccurs="unbounded" name="message">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="code" type="xsd:string" />
+								<xsd:element name="description" type="xsd:string" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="locale">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="([eE][nN]|[fF][rR])" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="PlatformIDType">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="\d{1,10}" />
+				</xsd:restriction>
+			</xsd:simpleType>			
+
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CreateOpenReturnTemplateRequest">
+		<wsdl:part name="body" element="tns:create-open-return-template-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="CreateOpenReturnTemplateResponse">
+		<wsdl:part name="body" element="tns:create-open-return-template-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="RetrieveNextOpenReturnArtifactRequest">
+		<wsdl:part name="body" element="tns:retrieve-next-open-return-artifact-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="RetrieveNextOpenReturnArtifactResponse">
+		<wsdl:part name="body" element="tns:retrieve-next-open-return-artifact-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOpenReturnTemplateRequest">
+		<wsdl:part name="body" element="tns:get-open-return-template-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOpenReturnTemplateResponse">
+		<wsdl:part name="body" element="tns:get-open-return-template-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOpenReturnTemplateDetailsRequest">
+		<wsdl:part name="body" element="tns:get-open-return-template-details-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOpenReturnTemplateDetailsResponse">
+		<wsdl:part name="body" element="tns:get-open-return-template-details-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="DeleteOpenReturnTemplateRequest">
+		<wsdl:part name="body" element="tns:delete-open-return-template-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="DeleteOpenReturnTemplateResponse">
+		<wsdl:part name="body" element="tns:delete-open-return-template-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOpenReturnTemplatesRequest">
+		<wsdl:part name="body" element="tns:get-open-return-templates-request"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOpenReturnTemplatesResponse">
+		<wsdl:part name="body" element="tns:get-open-return-templates-response"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="OpenReturnPortType">
+		<wsdl:operation name="CreateOpenReturnTemplate">
+			<wsdl:input message="tns:CreateOpenReturnTemplateRequest"></wsdl:input>
+			<wsdl:output message="tns:CreateOpenReturnTemplateResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RetrieveNextOpenReturnArtifact">
+			<wsdl:input message="tns:RetrieveNextOpenReturnArtifactRequest"></wsdl:input>
+			<wsdl:output message="tns:RetrieveNextOpenReturnArtifactResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOpenReturnTemplate">
+			<wsdl:input message="tns:GetOpenReturnTemplateRequest"></wsdl:input>
+			<wsdl:output message="tns:GetOpenReturnTemplateResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOpenReturnTemplateDetails">
+			<wsdl:input message="tns:GetOpenReturnTemplateDetailsRequest"></wsdl:input>
+			<wsdl:output message="tns:GetOpenReturnTemplateDetailsResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteOpenReturnTemplate">
+			<wsdl:input message="tns:DeleteOpenReturnTemplateRequest"></wsdl:input>
+			<wsdl:output message="tns:DeleteOpenReturnTemplateResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOpenReturnTemplates">
+			<wsdl:input message="tns:GetOpenReturnTemplatesRequest"></wsdl:input>
+			<wsdl:output message="tns:GetOpenReturnTemplatesResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="OpenReturn" type="tns:OpenReturnPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="CreateOpenReturnTemplate">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/openreturn/CreateOpenReturnTemplate" />
+			<wsdl:input>
+				<wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RetrieveNextOpenReturnArtifact">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/openreturn/RetrieveNextOpenReturnArtifact" />
+			<wsdl:input>
+				<wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOpenReturnTemplate">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/openreturn/GetOpenReturnTemplate" />
+			<wsdl:input>
+				<wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOpenReturnTemplateDetails">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/openreturn/GetOpenReturnTemplateDetails" />
+			<wsdl:input>
+				<wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteOpenReturnTemplate">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/openreturn/DeleteOpenReturnTemplate" />
+			<wsdl:input>
+				<wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOpenReturnTemplates">
+			<soap:operation soapAction="http://www.canadapost.ca/ws/soap/openreturn/GetOpenReturnTemplates" />
+			<wsdl:input>
+				<wsp:PolicyReference URI="#policy0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="OpenReturnService">
+		<wsdl:port name="OpenReturnPort" binding="tns:OpenReturn">
+			<soap:address location="https://ct.soa-gw.canadapost.ca/rs/soap/openreturn/v2" />
+		</wsdl:port>
+	</wsdl:service>
+
+	<wsp:Policy wsu:Id="policy0" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+					<sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+						<wsp:Policy>
+							<sp:WssUsernameToken10 />
+						</wsp:Policy>
+					</sp:UsernameToken>
+				</sp:SupportingTokens>
+			</wsp:All>
+			<wsp:All>
+				<sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+					<sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+						<wsp:Policy>
+							<sp:WssUsernameToken11 />
+						</wsp:Policy>
+					</sp:UsernameToken>
+				</sp:SupportingTokens>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+
+</wsdl:definitions>
