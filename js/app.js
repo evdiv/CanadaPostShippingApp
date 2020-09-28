@@ -63,8 +63,6 @@ var app = new Vue({
 					shipmentPin: '',
 					shipmentCreated: '',
 					shipmentService: '',
-					shipmentAdminName: '',
-					shipmentAdminId: '',
 					shipmentOrderId: '',
 					shipmentSenderAddress: '',
 					shipmentSenderCity: '',
@@ -820,8 +818,6 @@ var app = new Vue({
 
 								self.shipmentCreated = response.data.shipment.date;
 								self.shipmentService = response.data.shipment.service || '';
-								self.shipmentAdminName = response.data.shipment.adminName || '';
-								self.shipmentAdminId = response.data.shipment.adminId;
 								self.shipmentOrderId = response.data.shipment.orderId;
 								self.shipmentSenderAddress = response.data.shipment.senderAddress;
 								self.shipmentSenderCity = response.data.shipment.senderCity;
@@ -891,12 +887,8 @@ var app = new Vue({
 
 							if( response.data.errors.length === 0) {
 
-								console.log("in the getLabel response");
-
 								self.pdfUrl = response.data.pdfUrl;
 								self.injectPdf(self.pdfUrl, injectInElement);
-
-								console.log('pdfUrl: ' + self.pdfUrl);
 
 								setTimeout(function(){ 
 
@@ -904,7 +896,6 @@ var app = new Vue({
 									return true;
 
 								}, 2000);
-
 							}
 
 							self.handleErrors(response.data.errors); 
@@ -1083,9 +1074,6 @@ var app = new Vue({
 						this.activateTab('admin');
 					},
 
-
-					//***************************************************
-					//Admin functions
 
 					getManifestForDate: function() {
 						var self = this;

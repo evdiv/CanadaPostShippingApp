@@ -32,7 +32,6 @@
 
 
 			    <div class="col">
-
 					<ul class="nav nav-tabs" id="right-tab" role="tablist">
 
 						<li class="nav-item">
@@ -43,15 +42,9 @@
 						    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
 						</li>
 
-						<?php if(isAdminAccount() || 1 == 1): ?>
-
-							<li class="nav-item">
-							    <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">Manifests</a>
-							</li>
-						
-						<?php endif;?>
-
-
+						<li class="nav-item">
+						    <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">Manifests</a>
+						</li>
 					</ul>
  
 
@@ -65,11 +58,8 @@
 							<?php include('history.php'); ?>
 					  	<!-- End List of Shipments -->
 
-
 					  	<!-- List of Admin functions --->
-						<?php if(isAdminAccount() || 1 == 1) {
-							include('admin.php');
-						} ?>
+							<?php include('admin.php'); ?>
 					  	<!-- End list of Admin functions -->
 
 					</div>

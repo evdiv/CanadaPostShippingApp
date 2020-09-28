@@ -2,8 +2,6 @@
 
 require_once "./config.php";
 
-redirectIfGuest(); 
-
 //Incoming Parameters 
 $jsonData 	= getIncomingJson();
 
@@ -14,6 +12,7 @@ $jsonData 	= getIncomingJson();
 if($jsonData['action'] == "getLocations") {
 
 	$locations = (new CanadaPost\Origin())->getAll();
+
 	echo json_encode($locations); 
 
 
@@ -22,13 +21,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "getSenderLocation") {
 
-
-	if($jsonData['returnShipment']) {
-		$id = !empty($jsonData['shipDirect']) ? $jsonData['shipDirect'] : getAdminReturnLocationID();
-	} else {
-		$id = !empty($jsonData['Id']) ? $jsonData['Id'] : getAdminLocationID(DEFAULT_LOCATION_ID);
-	}
-
+	$id = !empty($jsonData['Id']) ? $jsonData['Id'] : DEFAULT_LOCATION_ID;
 	$location = (new CanadaPost\Origin())->getById($id);
 
     echo json_encode(array('sender' => $location));
@@ -40,6 +33,7 @@ if($jsonData['action'] == "getLocations") {
 } elseif($jsonData['action'] == "getReceiverByOrderId") { 
 
 	$receiver = (new CanadaPost\Customer())->getByOrderId($jsonData['orderID']);
+
    	echo json_encode(array('receiver' => $receiver));
 
 
@@ -49,6 +43,7 @@ if($jsonData['action'] == "getLocations") {
 } elseif($jsonData['action'] == "getSenderByOrderId") { 
 
 	$location = (new CanadaPost\Origin())->getByOrderId($jsonData['orderID']);
+
     echo json_encode(array('sender' => $location));
 
 
@@ -58,6 +53,7 @@ if($jsonData['action'] == "getLocations") {
 } elseif($jsonData['action'] == "getPackagesByOrderId") {
 
 	$packages = (new CanadaPost\Shipment())->getPackagesByOrderId($jsonData['orderID']);
+
     echo json_encode(array('packages' => $packages));
 
 
@@ -177,7 +173,6 @@ if($jsonData['action'] == "getLocations") {
 	$ReturnShipment->create();
 	$ReturnShipment->store();
 	
-
 	echo json_encode(array(
 						'pins' => $ReturnShipment->labels, 
 						'errors' => $ReturnShipment->errors
@@ -227,7 +222,6 @@ if($jsonData['action'] == "getLocations") {
 		exit;
 	}
 
-	//**********************************************
 	// Send to Customer
     $SendMail = new CanadaPost\SendMail;
     $SendMail->SenderName  = SITE_NAME;
@@ -262,6 +256,7 @@ if($jsonData['action'] == "getLocations") {
 
 
 } elseif($jsonData['action'] == "printManifestId") {
+
 
 //**************************************************
 // Print manifest for a given date

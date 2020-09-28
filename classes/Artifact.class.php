@@ -6,13 +6,11 @@ class Artifact {
 
 	private $db;
 	private $incomingData;
-
 	private $client;
 	private $request;
 	private $response;	
-
+	
 	public $pdfUrl;
-	public $pdfUrlCropped;
 	public $errors = array();
 
 
@@ -141,8 +139,6 @@ class Artifact {
 			return;
 		}
 
-		$this->pdfUrlCropped = str_replace('.pdf', 'cr.pdf', $this->pdfUrl);
-
 		//for resolution: 400x400
 		$width = 1700;
 		$height = 2300;
@@ -162,7 +158,7 @@ class Artifact {
 
 		$image->readImage($tmpImg);
 		$image->setImageFormat('pdf');
-		$image->writeImage($this->pdfUrlCropped);
+		$image->writeImage($this->pdfUrl);
 
 		$image->clear(); 
 		$image->destroy();

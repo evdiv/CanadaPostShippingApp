@@ -17,67 +17,6 @@ function __autoload($className) {
     return false;
 }
 
-//Peventing access for unregistered users
-function redirectIfGuest() {
-
-	if(empty($_SESSION['AdminID'])) {
-		header("location: /");
-		exit;
-	} 
-}
-
-function getAdminShippingLocation() {
-
-	if(empty($_SESSION['AdminID'])) {
-		return;
-	}
-
-	$db = new CanadaPost\Database();
-	$result = $db->query("SELECT LocationsID FROM Admin WHERE AdminID = " . $_SESSION['AdminID']);
-
-	if($result) {
-		$row = $result->fetch_assoc();
-		return $row['LocationsID'];
-	}
-}
-
-
-function getAdminShippingLocationCode() {
-
-	if(empty($_SESSION['AdminID'])) {
-		return;
-	}
-
-	$db = new CanadaPost\Database();
-	$result = $db->query("SELECT l.LocationCode FROM Locations AS l, Admin AS a 
-							WHERE l.LocationsID = a.LocationsID 
-							AND a.AdminID = " . $_SESSION['AdminID']);
-
-	if($result) {
-		$row = $result->fetch_assoc();
-		return $row['LocationCode'];
-	}
-}
-
-
-function getAdminLocationDetails() {
-
-	if(empty($_SESSION['AdminID'])) {
-		return;
-	}
-
-	$db = new CanadaPost\Database();
-	$result = $db->query("SELECT l.LocationCode, l.ActualCityName, l.Phone, l.Email, l.PostalCode, l.CpAPIUser, l.CpAPIPass, 
-							l.CpAPICustomerNumber, l.CpAPIAgreementNumber 
-							FROM Locations AS l, Admin AS a 
-							WHERE l.LocationsID = a.LocationsID 
-							AND a.AdminID = " . $_SESSION['AdminID']);
-	if($result) {
-		$row = $result->fetch_assoc();
-		return $row;
-	}
-}
-
 
 function getIncomingJson() {
 

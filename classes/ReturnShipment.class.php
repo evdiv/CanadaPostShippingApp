@@ -110,7 +110,6 @@ class ReturnShipment {
 
     public function store() {
 
-        $adminID = !empty($_SESSION['AdminID']) ? $_SESSION['AdminID'] : 0;
         $orderID = !empty($this->incomingData['orderID']) ? $this->incomingData['orderID'] : '';
     
         $locationCode = !empty($this->incomingData['senderLocationCode']) ? $this->incomingData['senderLocationCode'] : '';
@@ -140,7 +139,6 @@ class ReturnShipment {
                                 TrackingCarrierID = 1, 
                                 TrackingCode = '" . $label . "', 
                                 LocationCode = '" . $locationCode . "',  
-                                AdminID = " . $adminID . ", 
                                 " . $packageSQL . "
                                 CourierService = '" . $serviceID . "'";
 

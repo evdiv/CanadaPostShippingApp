@@ -159,42 +159,4 @@ class Origin {
 
 		return $location;
 	}
-
-
-	private function getLocationByCurrentAdmin() {
-
-		$location = array();
-
-		$result = $this->db->query("SELECT l.*, p.ProvinceName, p.ProvinceCode 
-									FROM Locations AS l, Provinces AS p, Admin AS a
-									WHERE l.ProvincesID = p.ProvincesID
-									AND l.LocationsID = a.LocationsID
-									AND a.AdminID = " . $_SESSION['AdminID'] . " 
-									LIMIT 1");
-
-		if($result) {
-			$row = $result->fetch_assoc();
-
-			$location['Id'] = $row['LocationsID'];
-			$location['Name'] = COMPANY_NAME;
-			$location['Company'] = COMPANY_NAME;
-			$location['StreetNumber'] = getStreetNumber($row['SteetAddress']);
-			$location['StreetName'] = getStreetName($row['SteetAddress']);
-			$location['City'] = getCorrectCityName($row['ActualCityName']);
-			$location['Province'] = $row['ProvinceCode'];
-			$location['Country'] = 'CA';
-			$location['PostalCode'] = $row['PostalCode'];
-			$location['PhoneAreaCode'] = getPhoneAreaCode($row['ShippingAccountPhone']);
-			$location['Phone'] = getPhone($row['ShippingAccountPhone']);
-			$location['LocationCode'] = $row['LocationCode'];
-			$location['LocationName'] = $row['City'];
-		}
-
-	    //Encode everything to UTF8
-		foreach ($location as &$val) {
-			$val = utf8_encode($val);
-		}
-
-		return $location;
-	}
 }

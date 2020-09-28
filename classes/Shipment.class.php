@@ -265,14 +265,8 @@ class Shipment {
 								TrackingIdentifier = '" . $this->shipmentId . "', 
 								Label = '" . $this->label . ".pdf',
 								LocationCode = '" . $locationCode . "',  
-								AdminID = " . $adminID . ", 
 								" . $packageSQL . "
-								CourierService = '" . $serviceID . "'");				
-
-
-
-    		$this->db->query("INSERT INTO OrdersNotes (AdminID, OrderID, Note, NoteDate)
-            					VALUES ('311', {$orderID}, 'Canada Post Shipment created', Now())");  
+								CourierService = '" . $serviceID . "'");			
 	}
 
 
