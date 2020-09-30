@@ -1,5 +1,4 @@
 <?php 
-
 namespace CanadaPost;
 
 class Artifact {
@@ -9,13 +8,12 @@ class Artifact {
 	private $client;
 	private $request;
 	private $response;	
-	
+
 	public $pdfUrl;
 	public $errors = array();
 
 
 	public function __construct($incomingData = '') {
-
 		$this->db = new Database();
 
 		$this->incomingData = $incomingData;
@@ -118,7 +116,7 @@ class Artifact {
 			} 
 
 			$label64BaseSring = $response->{'artifact-data'}->{'image'};
-			$this->pdfUrl = getFilePathOnServer($label64BaseSring, $labelName, $this->getArtifactType());
+			$this->pdfUrl = self::getFilePathOnServer($label64BaseSring, $labelName, $this->getArtifactType());
 
 			// set timeout to make sure that the file is created on the Server.
 			sleep(1);
@@ -164,5 +162,31 @@ class Artifact {
 		$image->destroy();
 
 	}
+
+	public static function getFilePathOnServer($label64BaseSring = '', $labelName  = '', $type = 'label') {
+		if(empty($label64BaseSring) || empty($labelName)) {
+			return '';
+		}
+
+		$labelPath = ($type == 'manifest') ? "./manifests/" : "./labels/"; 
+		$labelPath = $labelPath . $labelName;
+
+	    file_put_contents($labelPath, base64_decode($label64BaseSring));
+
+	    return $labelPath;
+	}
+
+
+	public static function getLastCreatedFileOnServer($type = 'manifests') {
+
+		$folder = './'.$type . '/';
+		$files = scandir($folder, SCANDIR_SORT_DESCENDING);
+		$newest_file = $files[0];
+
+		return $folder . $newest_file;
+	}
+
+
+
 
 }

@@ -152,11 +152,11 @@ class ReturnShipment {
     private function populateReturner() {
 
         return array(
-            'name'      => sanitize($this->incomingData['receiverName']),
-            'company'   => sanitize($this->incomingData['receiverName']),   
+            'name'      => Common::fixAccents($this->incomingData['receiverName']),
+            'company'   => Common::fixAccents($this->incomingData['receiverName']),   
             'domestic-address'  => array(
-                'address-line-1'    => sanitize($this->incomingData['receiverStreetNumber'] . ' ' . $this->incomingData['receiverStreetName']),
-                'city'              => sanitize($this->incomingData['receiverCity']),  
+                'address-line-1'    => Common::fixAccents($this->incomingData['receiverStreetNumber'] . ' ' . $this->incomingData['receiverStreetName']),
+                'city'              => Common::fixAccents($this->incomingData['receiverCity']),  
                 'province'      => $this->incomingData['receiverProvince'],    
                 'postal-code'   => strtoupper(str_replace(' ' , '', $this->incomingData['receiverPostalCode'])) 
             )
@@ -171,8 +171,8 @@ class ReturnShipment {
             'name'      => COMPANY_NAME,  
             'company'   => COMPANY_NAME, 
             'domestic-address'  => array(
-                'address-line-1'    => sanitize($this->incomingData['senderStreetNumber'] . ' ' . $this->incomingData['senderStreetName']),  
-                'city'              => sanitize($this->incomingData['senderCity']),    
+                'address-line-1'    => Common::fixAccents($this->incomingData['senderStreetNumber'] . ' ' . $this->incomingData['senderStreetName']),  
+                'city'              => Common::fixAccents($this->incomingData['senderCity']),    
                 'province'      => $this->incomingData['senderProvince'],    
                 'postal-code'   => strtoupper(str_replace(' ', '', $this->incomingData['senderPostalCode'])) 
             )                   

@@ -1,5 +1,4 @@
 <?php 
-
 namespace CanadaPost;
 
 class Estimate {
@@ -18,7 +17,6 @@ class Estimate {
 
 
 	public function __construct($incomingData = '') {
-
 		$this->db = new Database();
 
 		$this->incomingData = $incomingData;

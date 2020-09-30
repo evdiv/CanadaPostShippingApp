@@ -1,5 +1,4 @@
 <?php 
-
 namespace CanadaPost;
 
 class Shipment {
@@ -148,10 +147,10 @@ class Shipment {
 
 	private function populateDestination() {
 
-		$name = str_replace("&#39;", "'", sanitize($this->incomingData['receiverName']));
-		$address1 = str_replace("&#39;", "'", sanitize($this->incomingData['receiverStreetNumber'] . ' ' . $this->incomingData['receiverStreetName']));
-		$address2 = str_replace("&#39;", "'", sanitize($this->incomingData['receiverAddress2']));
-		$city = str_replace("&#39;", "'", sanitize($this->incomingData['receiverCity'])); 
+		$name = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverName']));
+		$address1 = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverStreetNumber'] . ' ' . $this->incomingData['receiverStreetName']));
+		$address2 = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverAddress2']));
+		$city = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverCity'])); 
 
 
 		$destination = array(
@@ -174,12 +173,12 @@ class Shipment {
 	private function populateSender() {
 
 		$sender = array(
-			'name'				=> sanitize($this->incomingData['senderName']),	
+			'name'				=> Common::fixAccents($this->incomingData['senderName']),	
 			'company'			=> COMPANY_NAME,	
 			'contact-phone'		=> COMPANY_PHONE,	
 			'address-details'	=> array(
-				'address-line-1'	=> sanitize($this->incomingData['senderStreetNumber'] . ' ' . $this->incomingData['senderStreetName']),
-				'city'				=> sanitize($this->incomingData['senderCity']),	
+				'address-line-1'	=> Common::fixAccents($this->incomingData['senderStreetNumber'] . ' ' . $this->incomingData['senderStreetName']),
+				'city'				=> Common::fixAccents($this->incomingData['senderCity']),	
 				'prov-state'		=> $this->incomingData['senderProvince'],
 				'country-code'		=> CP_COUNTRY_CODE,	
 				'postal-zip-code'	=> strtoupper(str_replace(' ', '', $this->incomingData['senderPostalCode']))	
@@ -531,7 +530,6 @@ class Shipment {
 
 
 	private function updateAsVoidedinDB() {
-
 		if(empty($this->voided)) {
 			return;
 		}

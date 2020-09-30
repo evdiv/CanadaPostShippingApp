@@ -1,9 +1,9 @@
 <?php
 
-require_once "./config.php";
+require_once "./autoloader.php";
 
 //Incoming Parameters 
-$jsonData 	= getIncomingJson();
+$jsonData 	= (new CanadaPost\Request())->get(); 
 
 
 //***************************************************
@@ -149,7 +149,7 @@ if($jsonData['action'] == "getLocations") {
 
 		//Display the error and the last created Manifest
 		echo json_encode(array(
-			'pdfUrl' => getLastCreatedFileOnServer($type = 'manifests'), 
+			'pdfUrl' => CanadaPost\Artifact::getLastCreatedFileOnServer($type = 'manifests'), 
 			'errors' => $Manifest->errors
 		));
 

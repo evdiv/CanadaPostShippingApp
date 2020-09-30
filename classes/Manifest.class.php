@@ -19,7 +19,6 @@ class Manifest {
 
 
 	public function __construct($incomingData = '') {
-
 		$this->db = new Database();
 
 		$this->incomingData = $incomingData;

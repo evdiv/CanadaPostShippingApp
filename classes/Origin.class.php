@@ -54,14 +54,14 @@ class Origin {
 			$location['Id'] = $row['LocationsID'];
 			$location['Name'] = COMPANY_NAME;
 			$location['Company'] = COMPANY_NAME;
-			$location['StreetNumber'] = getStreetNumber($row['SteetAddress']);
-			$location['StreetName'] = getStreetName($row['SteetAddress']);
-			$location['City'] = getCorrectCityName($row['ActualCityName']);
+			$location['StreetNumber'] = Address::getStreetNumber($row['SteetAddress']);
+			$location['StreetName'] = Address::getStreetName($row['SteetAddress']);
+			$location['City'] = Address::cleanCityName($row['ActualCityName']);
 			$location['Province'] = $row['ProvinceCode'];
 			$location['Country'] = CP_COUNTRY_CODE;
 			$location['PostalCode'] = $row['PostalCode'];
-			$location['PhoneAreaCode'] = getPhoneAreaCode($row['ShippingAccountPhone']);
-			$location['Phone'] = getPhone($row['ShippingAccountPhone']);
+			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
+			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
 			$location['LocationCode'] = $row['LocationCode'];
 			$location['LocationName'] = $row['City'];
 		}
@@ -103,14 +103,14 @@ class Origin {
 			$location['Id'] = $row['LocationsID'];
 			$location['Name'] = COMPANY_NAME;
 			$location['Company'] = COMPANY_NAME;
-			$location['StreetNumber'] = getStreetNumber($row['SteetAddress']);
-			$location['StreetName'] = getStreetName($row['SteetAddress']);
-			$location['City'] = getCorrectCityName($row['ActualCityName']);
+			$location['StreetNumber'] = Address::getStreetNumber($row['SteetAddress']);
+			$location['StreetName'] = Address::getStreetName($row['SteetAddress']);
+			$location['City'] = Address::cleanCityName($row['ActualCityName']);
 			$location['Province'] = $row['ProvinceCode'];
 			$location['Country'] = CP_COUNTRY_CODE;
 			$location['PostalCode'] = $row['PostalCode'];
-			$location['PhoneAreaCode'] = getPhoneAreaCode($row['ShippingAccountPhone']);
-			$location['Phone'] = getPhone($row['ShippingAccountPhone']);
+			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
+			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
 			$location['LocationCode'] = $row['LocationCode'];
 			$location['LocationName'] = $row['City'];
 		}
@@ -140,14 +140,14 @@ class Origin {
 			$location['Id'] = $row['LocationsID'];
 			$location['Name'] = COMPANY_NAME;
 			$location['Company'] = COMPANY_NAME;
-			$location['StreetNumber'] = getStreetNumber($row['SteetAddress']);
-			$location['StreetName'] = getStreetName($row['SteetAddress']);
-			$location['City'] = getCorrectCityName($row['ActualCityName']);
+			$location['StreetNumber'] = Address::getStreetNumber($row['SteetAddress']);
+			$location['StreetName'] = Address::getStreetName($row['SteetAddress']);
+			$location['City'] = Address::cleanCityName($row['ActualCityName']);
 			$location['Province'] = $row['ProvinceCode'];
 			$location['Country'] = 'CA';
 			$location['PostalCode'] = $row['PostalCode'];
-			$location['PhoneAreaCode'] = getPhoneAreaCode($row['ShippingAccountPhone']);
-			$location['Phone'] = getPhone($row['ShippingAccountPhone']);
+			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
+			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
 			$location['LocationCode'] = $row['LocationCode'];
 			$location['LocationName'] = $row['City'];
 		}

@@ -1,5 +1,4 @@
 <?php 
-
 namespace CanadaPost;
 
 class Customer {
@@ -7,7 +6,6 @@ class Customer {
 	private $db;
 
     public function __construct() {
-
 		$this->db = new Database();
     }
 
@@ -64,15 +62,15 @@ class Customer {
 			$customer['CourierSelected'] = $row['CourierSelected'];
 			$customer['CourierService'] = $row['CourierService'];
 
-			$customer['StreetNumber'] = getStreetNumber($row['DeliveryAddressLine1']);
-			$customer['StreetName'] = ucfirst(getStreetName($row['DeliveryAddressLine1']));
+			$customer['StreetNumber'] = Address::getStreetNumber($row['DeliveryAddressLine1']);
+			$customer['StreetName'] = Address::getStreetName($row['DeliveryAddressLine1']);
 
 
 			$AddressTemp = $row['DeliveryAddressLine2'];
 			
 				if(strlen(trim($AddressTemp)) > 30){
 
-					$AddressArray = splitAddress($AddressTemp);
+					$AddressArray = Address::splitAddress($AddressTemp);
 					$Address2 = $AddressArray[0];
 					$Address3 = $AddressArray[1];
 
@@ -81,14 +79,14 @@ class Customer {
 					$Address3 = '';
 				}
 
-	        $customer['AddressLine2'] =  getAdditionalAddressLine($Address2);
-	        $customer['AddressLine3']  = getAdditionalAddressLine($Address3);
-	        $customer['City'] = ucfirst(str_replace(","," ", sanitize($row['DeliveryCity'])));
+	        $customer['AddressLine2'] =  Address::cleanAddressLine($Address2);
+	        $customer['AddressLine3']  = Address::cleanAddressLine($Address3);
+	        $customer['City'] = Address::cleanCityName($row['HomeCity']);
 	        $customer['ProvinceCode'] =  $row['DeliveryProvince'];
-	        $customer['PostalCode'] = getPostalCode($row['DeliveryPostalCode']); 
+	        $customer['PostalCode'] = Address::getPostalCode($row['DeliveryPostalCode']); 
 	        $customer['Country'] = CP_COUNTRY_CODE; 
-	        $customer['PhoneAreaCode'] = getPhoneAreaCode($row['DeliveryPhone']); 
-	        $customer['Phone'] = getPhone($row['DeliveryPhone']);
+	        $customer['PhoneAreaCode'] = Address::getPhoneAreaCode($row['DeliveryPhone']); 
+	        $customer['Phone'] = Address::getPhone($row['DeliveryPhone']);
 	        $customer['Email'] = $row['DeliveryEmail'];
 			$customer['sigRequired']  = false;
 			$customer['shipDirect'] = $row['ShipDirect']; 
@@ -135,14 +133,14 @@ class Customer {
 			$customer['CourierSelected'] = $row['CourierSelected'];
 			$customer['CourierService'] = $row['CourierService'];
 
-			$customer['StreetNumber'] = getStreetNumber($row['HomeAddress']);
-			$customer['StreetName'] = ucfirst(getStreetName($row['HomeAddress']));
+			$customer['StreetNumber'] = Address::getStreetNumber($row['HomeAddress']);
+			$customer['StreetName'] = Address::getStreetName($row['HomeAddress']);
 
 			$AddressTemp = $row['AptUnitl'];
 			
 				if(strlen(trim($AddressTemp)) > 30){
 
-					$AddressArray = splitAddress($AddressTemp);
+					$AddressArray = Address::splitAddress($AddressTemp);
 					$Address2 = $AddressArray[0];
 					$Address3 = $AddressArray[1];
 
@@ -151,14 +149,14 @@ class Customer {
 					$Address3 = '';
 				}
 
-	        $customer['AddressLine2'] =  getAdditionalAddressLine($Address2);
-	        $customer['AddressLine3']  = getAdditionalAddressLine($Address3);
-	        $customer['City'] = ucfirst(str_replace(","," ",$row['HomeCity']));
+	        $customer['AddressLine2'] =  Address::cleanAddressLine($Address2);
+	        $customer['AddressLine3']  = Address::cleanAddressLine($Address3);
+	        $customer['City'] = Address::cleanCityName($row['HomeCity']);
 	        $customer['ProvinceCode'] =  $this->GetProvinceCodeByAccountsID($row['AccountsID']);
-	        $customer['PostalCode'] = getPostalCode($row['PostalCode']);
+	        $customer['PostalCode'] = Address::getPostalCode($row['PostalCode']);
 	        $customer['Country'] = CP_COUNTRY_CODE; 
-	        $customer['PhoneAreaCode'] = getPhoneAreaCode($row['HomePhone']); 
-	        $customer['Phone'] = getPhone($row['HomePhone']);
+	        $customer['PhoneAreaCode'] = Address::getPhoneAreaCode($row['HomePhone']); 
+	        $customer['Phone'] = Address::getPhone($row['HomePhone']);
 	        $customer['Email'] = $row['Email'];
 			$customer['sigRequired']  = false;
 
@@ -201,15 +199,15 @@ class Customer {
 			$customer['CourierSelected'] = $row['CourierSelected'];
 			$customer['CourierService'] = $row['CourierService'];
 
-			$customer['StreetNumber'] = getStreetNumber($row['DeliveryAddressLine1']);
-			$customer['StreetName'] = ucfirst(getStreetName($row['DeliveryAddressLine1']));
+			$customer['StreetNumber'] = Address::getStreetNumber($row['DeliveryAddressLine1']);
+			$customer['StreetName'] = Address::getStreetName($row['DeliveryAddressLine1']);
 
 
 			$AddressTemp = $row['DeliveryAddressLine2'];
 			
 				if(strlen(trim($AddressTemp)) > 30){
 
-					$AddressArray = splitAddress($AddressTemp);
+					$AddressArray = Address::splitAddress($AddressTemp);
 					$Address2 = $AddressArray[0];
 					$Address3 = $AddressArray[1];
 
@@ -218,14 +216,14 @@ class Customer {
 					$Address3 = '';
 				}
 
-	        $customer['AddressLine2'] =  getAdditionalAddressLine($Address2);
-	        $customer['AddressLine3']  = getAdditionalAddressLine($Address3);
-	        $customer['City'] = ucfirst(str_replace(","," ", sanitize($row['DeliveryCity'])));
+	        $customer['AddressLine2'] =  Address::cleanAddressLine($Address2);
+	        $customer['AddressLine3']  = Address::cleanAddressLine($Address3);
+	        $customer['City'] = Address::cleanCityName($row['DeliveryCity']);
 	        $customer['ProvinceCode'] =  strtoupper($row['DeliveryProvince']);
-	        $customer['PostalCode'] = getPostalCode($row['DeliveryPostalCode']);
+	        $customer['PostalCode'] = Address::getPostalCode($row['DeliveryPostalCode']);
 	        $customer['Country'] = "CA"; 
-	        $customer['PhoneAreaCode'] = getPhoneAreaCode($row['DeliveryPhone']); 
-	        $customer['Phone'] = getPhone($row['DeliveryPhone']);
+	        $customer['PhoneAreaCode'] = Address::getPhoneAreaCode($row['DeliveryPhone']); 
+	        $customer['Phone'] = Address::getPhone($row['DeliveryPhone']);
 	        $customer['Email'] = $row['DeliveryEmail'];
 
 	        $customer['sigRequired']  = true;
@@ -256,17 +254,17 @@ class Customer {
 			$customer['ShippingName'] = COMPANY_NAME; 
 			$customer['AttentionTo'] = COMPANY_NAME;
 
-			$customer['StreetNumber'] = getStreetNumber($row['SteetAddress']);
-			$customer['StreetName'] = ucfirst(getStreetName($row['SteetAddress']));
+			$customer['StreetNumber'] = Address::getStreetNumber($row['SteetAddress']);
+			$customer['StreetName'] = ucfirst(Address::getStreetName($row['SteetAddress']));
 	        $customer['AddressLine2'] =  '';
 	        $customer['AddressLine3']  = '';
-	        $customer['City'] = ucfirst(str_replace(","," ", sanitize($row['ActualCityName'])));
+	        $customer['City'] = Address::cleanCityName($row['ActualCityName']);
 
 	        $customer['ProvinceCode'] =  strtoupper($row['ProvinceCode']);
-	        $customer['PostalCode'] = getPostalCode($row['PostalCode']);
+	        $customer['PostalCode'] = Address::getPostalCode($row['PostalCode']);
 	        $customer['Country'] = "CA"; 
-	        $customer['PhoneAreaCode'] = getPhoneAreaCode($row['Phone']); 
-	        $customer['Phone'] = getPhone($row['Phone']);
+	        $customer['PhoneAreaCode'] = Address::getPhoneAreaCode($row['Phone']); 
+	        $customer['Phone'] = Address::getPhone($row['Phone']);
 	        $customer['Email'] = $row['Email'];
 
 
