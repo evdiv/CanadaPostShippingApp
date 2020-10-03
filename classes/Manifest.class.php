@@ -114,7 +114,7 @@ class Manifest {
 			$this->createManifestArtifactRequest();
 		}
 
-		return $this->manifestArtifacts;
+		return $this;
 	}
 
 
@@ -137,8 +137,9 @@ class Manifest {
 		} catch(Exception $e) {
 
 			$this->errors[] = 'Fault Code: ' . trim($e->faultcode) . ' Msg: ' . trim($e->getMessage());
-			return;
 		}
+
+		return $this;
 	}
 
 

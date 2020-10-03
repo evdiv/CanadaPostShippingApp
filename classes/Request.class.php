@@ -5,7 +5,8 @@ class Request {
 	private $jsonData;
 
 	function __construct(){
-		$this->jsonData = json_decode(trim(file_get_contents('php://input')), true);
+		$jsonData = json_decode(trim(file_get_contents('php://input')), true);
+		$this->jsonData = is_array($jsonData) ? $jsonData : array();
 	}
 
 	public function get($name = ''){

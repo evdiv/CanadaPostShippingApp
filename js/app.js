@@ -268,7 +268,7 @@ var app = new Vue({
 					getLocations: function() {
 						var self = this;
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getLocations"
 						})
@@ -282,7 +282,7 @@ var app = new Vue({
 
 						this.resetAvailableServices();
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getSenderLocation",
 							Id: this.senderId
@@ -295,7 +295,7 @@ var app = new Vue({
 					getLocationsForReturnLabel: function() { 
 						var self = this;
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getSenderLocation",
 							Id: this.senderId
@@ -320,7 +320,7 @@ var app = new Vue({
 					getReceiverByOrderId: function() {
 						var self = this;
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getReceiverByOrderId",
 							orderID: this.orderId
@@ -334,7 +334,7 @@ var app = new Vue({
 					getSenderByOrderId: function() {
 						var self = this;
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getSenderByOrderId",
 							orderID: this.orderId
@@ -354,7 +354,7 @@ var app = new Vue({
 						}
 
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getPackagesByOrderId", 
 							orderID: this.orderId 
@@ -373,7 +373,7 @@ var app = new Vue({
 					getShippingBoxes: function() { 
 						var self = this;
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getShippingBoxes"
 						})
@@ -514,7 +514,7 @@ var app = new Vue({
 						this.displayLoadServicesSpinner = 1;
 						this.resetAvailableServices();	
 
-						axios.post("api.php", {
+						axios.post("", {
 		
 							action: "getAvalableServices",
 
@@ -626,7 +626,7 @@ var app = new Vue({
 						this.returnShipmentState = false;
 
 
-						axios.post("api.php", {
+						axios.post("", {
 		
 							action: "createShipment", 
 
@@ -705,7 +705,7 @@ var app = new Vue({
 						var self = this;
 						this.returnShipmentState = true;	
 
-						axios.post("api.php", {
+						axios.post("", {
 
 							action: "getSenderLocation",
 							returnShipment: 1,
@@ -735,7 +735,7 @@ var app = new Vue({
 						this.emailToCustomerSent = 0;
 						this.displayLoadShipmentSpinner = 1;
 
-						axios.post("api.php", {
+						axios.post("", {
 		
 							action: "createReturnShipment",
 
@@ -807,7 +807,7 @@ var app = new Vue({
 						this.shipmentId = trackingIdentifier  || '';
 
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "getShipmentDetails",
 							shipmentPin: this.shipmentPin,
 							shipmentId: this.shipmentId,
@@ -874,7 +874,7 @@ var app = new Vue({
 						shipmentPin = shipmentPin || this.shipmentPin;
 						injectInElement = injectInElement || this.injectPdfInElementId;
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "printLabel",
 							pin: shipmentPin,
 						})
@@ -910,7 +910,7 @@ var app = new Vue({
 						this.errors = [];		
 						this.displayLoadManifestSpinner = 1;
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "getManifest",
 							senderLocationCode: this.senderLocationCode,
 							senderPostalCode: this.senderPostalCode,
@@ -981,7 +981,7 @@ var app = new Vue({
 						} 
 
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "getShipmentsByDate",
 							date: this.ordersDate
 						})
@@ -1009,7 +1009,7 @@ var app = new Vue({
 						this.confirmation = '';
 						this.displayVoidShipmentSpinner = 1;
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "voidShipment",
 							shipmentId: this.voidShipmentId,
 						})
@@ -1032,7 +1032,7 @@ var app = new Vue({
 					sendEmailToCustomer: function() {
 						var self = this;
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "sendEmail",
 							receiverName: this.receiverName,
 							receiverEmail: this.receiverEmail,
@@ -1077,7 +1077,7 @@ var app = new Vue({
 
 					getManifestForDate: function() {
 						var self = this;
-						axios.post("api.php", {
+						axios.post("", {
 							action: "getManifestForDate",
 							date: this.retriveManifestForDate,
 						})
@@ -1097,7 +1097,7 @@ var app = new Vue({
 					getGroups: function() {
 						console.log('getGroups');
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "getGroups"
 						})
 						.then(function (response) {	
@@ -1112,7 +1112,7 @@ var app = new Vue({
 						this.errors = [];		
 						this.displayLoadManifestSpinner = 1;
 
-						axios.post("api.php", {
+						axios.post("", {
 							action: "printManifestId",
 							manifestIds: this.printManifestId, 
 						})

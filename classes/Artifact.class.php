@@ -93,7 +93,7 @@ class Artifact {
 			return;
 		}
 
-		$this->parseResponse($this->response);
+		return $this->parseResponse($this->response);
 	}
 
 
@@ -120,15 +120,15 @@ class Artifact {
 
 			// set timeout to make sure that the file is created on the Server.
 			sleep(1);
-
-			return $this->pdfUrl;
 		} 
 
-		foreach ( $response->{'messages'}->{'message'} as $message ) {
-			$this->errors[]  = 'Error Code: ' . $message->code . ' Error Msg: ' . $message->description;
+		if(isset($response->{'messages'}->{'message'})) {
+			foreach ( $response->{'messages'}->{'message'} as $message ) {
+				$this->errors[]  = 'Error Code: ' . $message->code . ' Error Msg: ' . $message->description;
+			}
 		}
 
-		return;
+		return $this;
 	}	
 
 

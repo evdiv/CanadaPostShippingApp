@@ -35,10 +35,6 @@
 						<br/>Selected Service: {{ shipmentService }}
 					</span>
 
-					<span v-if="shipmentAdminName !== ''">
-						<br/> Admin Name: <a target="_blank" :href="'https://manager.long-mcquade.com/Admin_Modify.php?action=edit&AdminID=' + shipmentAdminId">{{ shipmentAdminName }}</a>
-					</span>
-
 					<br/>Sender Location: 
 						<a target="_blank" :href="'https://manager.long-mcquade.com/Locations_Modify.php?action=edit&LocationsID=' + shipmentSenderId">
 							{{ shipmentSenderCity }}, {{ shipmentSenderAddress }}, {{ shipmentSenderPostalCode }}
@@ -54,21 +50,19 @@
 
 
 		    <div class="modal-footer">
-		    	<!-- <button type="button" 
+		    	<button type="button" 
 		    		class="btn btn-warning" 
 		    		data-dismiss="modal" 
-		    		@click="shipAgain(shipmentOrderId, shipmentSenderId)">Ship Again</button> -->
+		    		@click="shipAgain(shipmentOrderId, shipmentSenderId)">Ship Again</button>
 
 
-		    	<!-- 
 		    	<button type="button" 
 		    		class="btn btn-secondary" 
 		    		data-toggle="modal" 
 					data-target="#printLabelModal" 
 					v-if="shipmentVoided < 1"
 		    		@click="reprintLabel(shipmentPin)">Print Label</button>
-		    	-->
-
+		    		
 
 		    	<button type="button" 
 		    		class="btn btn-danger"  

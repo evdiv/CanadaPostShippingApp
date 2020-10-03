@@ -257,15 +257,16 @@ class Shipment {
 		$packageSQL .= !empty($this->package['note']) ? " Note = '" . $this->package['note'] . "', " : "";
 
 
-			$this->db->query("INSERT INTO TrackingInfo SET 
-								OrderID = '" . $orderID . "', 
-								TrackingCarrierID = 1, 
-								TrackingCode = '" . $this->trackingPin . "', 
-								TrackingIdentifier = '" . $this->shipmentId . "', 
-								Label = '" . $this->label . ".pdf',
-								LocationCode = '" . $locationCode . "',  
-								" . $packageSQL . "
-								CourierService = '" . $serviceID . "'");			
+		$this->db->query("INSERT INTO TrackingInfo SET 
+							OrderID = '" . $orderID . "', 
+							TrackingCarrierID = 1, 
+							TrackingCode = '" . $this->trackingPin . "', 
+							TrackingIdentifier = '" . $this->shipmentId . "', 
+							Label = '" . $this->label . ".pdf',
+							LocationCode = '" . $locationCode . "',  
+							" . $packageSQL . "
+							CourierService = '" . $serviceID . "'");
+		return $this;		
 	}
 
 
@@ -288,6 +289,8 @@ class Shipment {
         }
         $this->getVoided();
         $this->updateAsVoidedinDB();
+
+        return $this;
 	}
 
 
@@ -320,6 +323,8 @@ class Shipment {
 		} catch(SoapFault $exception) {
             die($exception);
 		}
+
+		return $this;
 	}
 
 

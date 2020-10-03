@@ -1,9 +1,8 @@
 <?php
-
-require_once "./autoloader.php";
+namespace CanadaPost;
 
 //Incoming Parameters 
-$jsonData 	= (new CanadaPost\Request())->get(); 
+$jsonData 	= (new Request())->get(); 
 
 
 //***************************************************
@@ -11,7 +10,7 @@ $jsonData 	= (new CanadaPost\Request())->get();
  
 if($jsonData['action'] == "getLocations") {
 
-	$locations = (new CanadaPost\Origin())->getAll();
+	$locations = (new Origin())->getAll();
 
 	echo json_encode($locations); 
 
@@ -22,7 +21,7 @@ if($jsonData['action'] == "getLocations") {
 } elseif($jsonData['action'] == "getSenderLocation") {
 
 	$id = !empty($jsonData['Id']) ? $jsonData['Id'] : DEFAULT_LOCATION_ID;
-	$location = (new CanadaPost\Origin())->getById($id);
+	$location = (new Origin())->getById($id);
 
     echo json_encode(array('sender' => $location));
 
@@ -32,7 +31,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "getReceiverByOrderId") { 
 
-	$receiver = (new CanadaPost\Customer())->getByOrderId($jsonData['orderID']);
+	$receiver = (new Customer())->getByOrderId($jsonData['orderID']);
 
    	echo json_encode(array('receiver' => $receiver));
 
@@ -42,7 +41,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "getSenderByOrderId") { 
 
-	$location = (new CanadaPost\Origin())->getByOrderId($jsonData['orderID']);
+	$location = (new Origin())->getByOrderId($jsonData['orderID']);
 
     echo json_encode(array('sender' => $location));
 
@@ -52,7 +51,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "getPackagesByOrderId") {
 
-	$packages = (new CanadaPost\Shipment())->getPackagesByOrderId($jsonData['orderID']);
+	$packages = (new Shipment())->getPackagesByOrderId($jsonData['orderID']);
 
     echo json_encode(array('packages' => $packages));
 
@@ -62,7 +61,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "getAvalableServices") {
 
-	$Estimate = new CanadaPost\Estimate($jsonData);
+	$Estimate = new Estimate($jsonData);
 	$Estimate->get();
 
 	echo json_encode(array(
@@ -76,8 +75,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "getShippingBoxes") {
 
-	$Shipment = new CanadaPost\Shipment($jsonData);
-	$Shipment->getShippingBoxes();
+	$Shipment = new Shipment($jsonData);
 
 	echo json_encode(array(
 						'boxes' => $Shipment->getShippingBoxes(), 
@@ -90,9 +88,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "createShipment") { 
 
-
-	$Shipment = new CanadaPost\Shipment($jsonData);
-	$Shipment->create();
+	$Shipment = (new Shipment($jsonData))->create();
 
 	echo json_encode(array(
 						'pins' => $Shipment->labels, 
@@ -109,8 +105,7 @@ if($jsonData['action'] == "getLocations") {
 		exit;
 	}
 
-	$Shipment = new CanadaPost\Shipment($jsonData);
-	$Shipment->void();
+	$Shipment = (new Shipment($jsonData))->void();
 
 	echo json_encode(array(
 						'voided' => $Shipment->voided, 
@@ -123,8 +118,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "printLabel") {
 
-	$Artifact = new CanadaPost\Artifact($jsonData);
-	$Artifact->create(); 
+	$Artifact = (new Artifact($jsonData))->create();
 
 	echo json_encode(array(
 						'pdfUrl' => $Artifact->pdfUrl, 
@@ -139,8 +133,7 @@ if($jsonData['action'] == "getLocations") {
 
 
 	//Once consolidation completed, the manifest can be produced
-	$Manifest = new CanadaPost\Manifest($jsonData);
-	$Manifest->create(); 
+	$Manifest = (new Manifest($jsonData))->create(); 
 
 	//set delay to make sure the manifest data is uploaded
 	sleep(1);
@@ -149,14 +142,14 @@ if($jsonData['action'] == "getLocations") {
 
 		//Display the error and the last created Manifest
 		echo json_encode(array(
-			'pdfUrl' => CanadaPost\Artifact::getLastCreatedFileOnServer($type = 'manifests'), 
+			'pdfUrl' => Artifact::getLastCreatedFileOnServer($type = 'manifests'), 
 			'errors' => $Manifest->errors
 		));
 
 		exit;
 	}
 
-	$Artifact = new CanadaPost\Artifact(array('pin' => $Manifest->manifestArtifacts[0], 'type' => 'manifest'));
+	$Artifact = new Artifact(array('pin' => $Manifest->manifestArtifacts[0], 'type' => 'manifest'));
 	$Artifact->create(); 
 
 	echo json_encode(array(
@@ -169,9 +162,7 @@ if($jsonData['action'] == "getLocations") {
 } elseif($jsonData['action'] == "createReturnShipment") {	
 
 
-	$ReturnShipment = new CanadaPost\ReturnShipment($jsonData);
-	$ReturnShipment->create();
-	$ReturnShipment->store();
+	$ReturnShipment = (new ReturnShipment($jsonData))->create()->store();
 	
 	echo json_encode(array(
 						'pins' => $ReturnShipment->labels, 
@@ -185,7 +176,7 @@ if($jsonData['action'] == "getLocations") {
 } elseif($jsonData['action'] == "getShipmentsByDate") { 
 
 	$date = (empty($jsonData['date']) || $jsonData['date'] === "Invalid date") ? date('Y-m-d') : $jsonData['date'];
-	$Shipment = new CanadaPost\Shipment();
+	$Shipment = new Shipment();
 
 	echo json_encode(array(
 						'shipments' => $Shipment->getByDate($date), 
@@ -198,7 +189,7 @@ if($jsonData['action'] == "getLocations") {
 
 } elseif($jsonData['action'] == "getShipmentDetails") {
 
-	$Shipment = new CanadaPost\Shipment();
+	$Shipment = new Shipment();
 
 	//Depends on the method of Shipment some orders doesn't have Shipment Identifier
 	if(empty($jsonData['shipmentId'])) {
@@ -223,7 +214,7 @@ if($jsonData['action'] == "getLocations") {
 	}
 
 	// Send to Customer
-    $SendMail = new CanadaPost\SendMail;
+    $SendMail = new SendMail;
     $SendMail->SenderName  = SITE_NAME;
     $SendMail->SenderEmail = ORDER_CONTACT;
     $SendMail->Subject = "Return Shipment Label - " . $jsonData['receiverName'];
@@ -240,8 +231,7 @@ if($jsonData['action'] == "getLocations") {
 //**************************************************
 // Get the full list of groups eligible for use in a Transmit Shipments request.
 
-	$Shipment = new CanadaPost\Shipment();
-	$Shipment->getGroups();
+	$Shipment = (new Shipment())->getGroups();
 
 } elseif($jsonData['action'] == "getManifestForDate") {
 
@@ -249,8 +239,7 @@ if($jsonData['action'] == "getLocations") {
 //**************************************************
 // To retrieve manifests within a given date range
 
-	$Manifest = new CanadaPost\Manifest($jsonData);
-	$Manifest->getforDate(); 
+	$Manifest = (new Manifest($jsonData))->getforDate(); 
 
 	echo json_encode($Manifest->manifestIds);
 
@@ -261,8 +250,7 @@ if($jsonData['action'] == "getLocations") {
 //**************************************************
 // Print manifest for a given date
 
-	$Manifest = new CanadaPost\Manifest($jsonData);
-	$Manifest->getManifestById();
+	$Manifest = (new Manifest($jsonData))->getManifestById();
 
 	if(count($Manifest->errors) > 0) {
 		echo json_encode(array('errors' => $Manifest->errors));
@@ -271,11 +259,19 @@ if($jsonData['action'] == "getLocations") {
 
 	sleep(1);
 
-	$Artifact = new CanadaPost\Artifact(array('pin' => $Manifest->manifestArtifacts[0], 'type' => 'manifest'));
+	$Artifact = new Artifact(array('pin' => $Manifest->manifestArtifacts[0], 'type' => 'manifest'));
 	$Artifact->create(); 
 
 	echo json_encode(array(
 						'pdfUrl' => $Artifact->pdfUrl, 
 						'errors' => $Artifact->errors
 					));
+
+
+//***************************************************
+// By default display the index file
+
+} else {
+	
+	require __DIR__.'/views/index.php';
 }

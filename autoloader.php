@@ -1,12 +1,7 @@
 <?php 
 
-//Autoload Classes
 spl_autoload_register(function($className) {
-	
-	$className = explode('\\', $className);
-	$filePath = './classes/' . end($className) . '.class.php';
 
-    if (file_exists($filePath)) {
-        require_once $filePath;
-    } 
+	$className = substr($className, strrpos($className, "\\") + 1);
+	include_once __DIR__ . "/classes/" . $className . ".class.php"; 
 });

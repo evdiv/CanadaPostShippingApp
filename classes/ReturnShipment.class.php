@@ -105,6 +105,8 @@ class ReturnShipment {
 
             $this->errors[] = 'Fault Code: ' . trim($e->faultcode) . ' Msg: ' . trim($e->getMessage());
         }
+
+        return $this;
     }
 
 
@@ -145,6 +147,8 @@ class ReturnShipment {
             $this->db->query($sql);
             $counter++;
         }
+
+        return $this;
     }
 
 
