@@ -113,8 +113,7 @@ class ReturnShipment {
     public function store() {
 
         $orderID = !empty($this->incomingData['orderID']) ? $this->incomingData['orderID'] : '';
-    
-        $locationCode = !empty($this->incomingData['senderLocationCode']) ? $this->incomingData['senderLocationCode'] : '';
+        $locationID = !empty($this->incomingData['senderLocationId']) ? $this->incomingData['senderLocationId'] : '';
         $serviceID = !empty($this->incomingData['serviceID']) ? $this->incomingData['serviceID'] : '';
 
         $counter = 0;
@@ -140,7 +139,7 @@ class ReturnShipment {
                                 OrderID = '" . $orderID . "', 
                                 TrackingCarrierID = 1, 
                                 TrackingCode = '" . $label . "', 
-                                LocationCode = '" . $locationCode . "',  
+                                LocationID = '" . $locationID . "',  
                                 " . $packageSQL . "
                                 CourierService = '" . $serviceID . "'";
 

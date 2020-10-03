@@ -62,7 +62,6 @@ class Origin {
 			$location['PostalCode'] = $row['PostalCode'];
 			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
 			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
-			$location['LocationCode'] = $row['LocationCode'];
 			$location['LocationName'] = $row['City'];
 		}
 
@@ -75,17 +74,11 @@ class Origin {
 	}
 
 
+	private function getByOrderId($id = 0) {
 
-	public function getByOrderId($id = 0) {
 		if(empty($id) || !is_numeric($id)) {
 			return;
 		}
-
-		return $this->getByWebStoreOrderId($id);
-	}
-
-
-	private function getByWebStoreOrderId($id) {
 
 		$location = array();
 
@@ -93,7 +86,7 @@ class Origin {
 									FROM Locations AS l, Provinces AS p, TrackingInfo AS t
 									WHERE l.ProvincesID = p.ProvincesID
 									AND t.TrackingCarrierID = 2 
-									AND l.LocationCode = t.LocationCode
+									AND l.LocationsID = t.LocationID
 									AND t.OrderID = " . $id . "
 									LIMIT 1");
 
@@ -111,7 +104,6 @@ class Origin {
 			$location['PostalCode'] = $row['PostalCode'];
 			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
 			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
-			$location['LocationCode'] = $row['LocationCode'];
 			$location['LocationName'] = $row['City'];
 		}
 
@@ -119,44 +111,6 @@ class Origin {
 		foreach ($location as &$val) {
 			$val = utf8_encode($val);
 		}
-		return $location;
-	}
-
-
-
-	private function getLocationByCode($code) {
-
-		$location = array();
-
-		$result = $this->db->query("SELECT l.*, p.ProvinceName, p.ProvinceCode 
-									FROM Locations AS l, Provinces AS p
-									WHERE l.ProvincesID = p.ProvincesID
-									AND l.LocationCode = '" . $code . "' 
-									LIMIT 1");
-
-		if($result) {
-			$row = $result->fetch_assoc();
-
-			$location['Id'] = $row['LocationsID'];
-			$location['Name'] = COMPANY_NAME;
-			$location['Company'] = COMPANY_NAME;
-			$location['StreetNumber'] = Address::getStreetNumber($row['SteetAddress']);
-			$location['StreetName'] = Address::getStreetName($row['SteetAddress']);
-			$location['City'] = Address::cleanCityName($row['ActualCityName']);
-			$location['Province'] = $row['ProvinceCode'];
-			$location['Country'] = 'CA';
-			$location['PostalCode'] = $row['PostalCode'];
-			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
-			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
-			$location['LocationCode'] = $row['LocationCode'];
-			$location['LocationName'] = $row['City'];
-		}
-
-	    //Encode everything to UTF8
-		foreach ($location as &$val) {
-			$val = utf8_encode($val);
-		}
-
 		return $location;
 	}
 }

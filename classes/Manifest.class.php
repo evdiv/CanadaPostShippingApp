@@ -80,7 +80,7 @@ class Manifest {
 				'mailed-by'			=> CP_CUSTOMER_NUMBER,
 				'transmit-set'		=> array(
 					'group-ids' 		=> array(
-						'group-id' 			=> date('dmY') . "-" . $this->incomingData['senderLocationCode'],
+						'group-id' 			=> date('dmY') . "-" . $this->incomingData['senderLocationId'],
 					),
 					'requested-shipping-point' => $postalCode,
 					'cpc-pickup-indicator' 	=> true,

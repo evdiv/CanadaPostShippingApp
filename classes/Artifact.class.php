@@ -144,7 +144,7 @@ class Artifact {
 		$startY = 400;
 
 
-		$tmpImg = APP_PATH . '/labels/tmp.jpg';
+		$tmpImg = APP_PATH . '/labels/label.jpg';
 
 
 		$image = new \Imagick(); 

@@ -141,7 +141,7 @@ class Shipment {
 
 
 	private function populateGroupId() {
-		return array('ns1:group-id'	=> date('dmY') . "-" . $this->incomingData['senderLocationCode']);
+		return array('ns1:group-id'	=> date('dmY') . "-" . $this->incomingData['senderLocationId']);
 	}
 
 
@@ -245,7 +245,7 @@ class Shipment {
 	public function store() {
 
 		$orderID = !empty($this->incomingData['orderID']) ? $this->incomingData['orderID'] : '';
-		$locationCode = !empty($this->incomingData['senderLocationCode']) ? $this->incomingData['senderLocationCode'] : '';
+		$locationID= !empty($this->incomingData['senderLocationId']) ? $this->incomingData['senderLocationId'] : '';
 		$serviceID = !empty($this->incomingData['serviceID']) ? $this->incomingData['serviceID'] : '';
 
 		$packageSQL = "";
@@ -263,7 +263,7 @@ class Shipment {
 							TrackingCode = '" . $this->trackingPin . "', 
 							TrackingIdentifier = '" . $this->shipmentId . "', 
 							Label = '" . $this->label . ".pdf',
-							LocationCode = '" . $locationCode . "',  
+							LocationID = '" . $locationID . "',  
 							" . $packageSQL . "
 							CourierService = '" . $serviceID . "'");
 		return $this;		
@@ -359,7 +359,7 @@ class Shipment {
 					'time' => str_replace($date, '', $row['DateAdded']),
 					'void' => $row['Void'],
 					'label' => $row['Label'],
-					'locationCode' => $row['LocationCode']
+					'locationID' => $row['LocationID']
 				);
 			}
 		} else {
@@ -382,7 +382,7 @@ class Shipment {
 
 		$result = $this->db->query("SELECT t.*, l.ActualCityName, l.SteetAddress, l.PostalCode, l.LocationsID  
 									FROM TrackingInfo AS t
-									LEFT JOIN Locations AS l ON t.LocationCode = l.LocationCode
+									LEFT JOIN Locations AS l ON t.LocationID = l.LocationsID
 									WHERE t.TrackingCode =  '" . $pin . "'
 									LIMIT 1");
 
@@ -419,7 +419,7 @@ class Shipment {
 
 		$result = $this->db->query("SELECT t.*, l.ActualCityName, l.SteetAddress, l.PostalCode, l.LocationsID  
 									FROM TrackingInfo AS t
-									LEFT JOIN Locations AS l ON t.LocationCode = l.LocationCode
+									LEFT JOIN Locations AS l ON t.LocationID = l.LocationsID
 									WHERE t.TrackingIdentifier =  '" . $shipmentId . "'
 									LIMIT 1");
 

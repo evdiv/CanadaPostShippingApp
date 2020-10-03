@@ -5,7 +5,7 @@ var app = new Vue({
 					//New Shipment Sender
 					locations: [],
 					senderLocationName: '',
-					senderLocationCode: '',
+					senderLocationId: '',
 					senderId: '',
 					senderName: '',
 					senderCompany: '',
@@ -395,7 +395,7 @@ var app = new Vue({
 						}
 
                     	this.senderId = sender.Id;
-                    	this.senderLocationCode = sender.LocationCode;
+                    	this.senderLocationId = sender.LocationId;
 						this.senderName = sender.Name;
 						this.senderCompany = sender.Company;
 						this.senderStreetNumber = sender.StreetNumber;
@@ -631,7 +631,7 @@ var app = new Vue({
 							action: "createShipment", 
 
 							//Sender
-							senderLocationCode: this.senderLocationCode,
+							senderLocationId: this.senderLocationId,
 							senderName: this.senderName,
 							senderCompany: this.senderCompany,
 							senderStreetNumber: this.senderStreetNumber, 
@@ -739,7 +739,7 @@ var app = new Vue({
 		
 							action: "createReturnShipment",
 
-							senderLocationCode: this.senderLocationCode,
+							senderLocationId: this.senderLocationId,
 							senderName: this.senderName,
 							senderCompany: this.senderCompany,
 							senderStreetNumber: this.senderStreetNumber, 
@@ -912,7 +912,7 @@ var app = new Vue({
 
 						axios.post("", {
 							action: "getManifest",
-							senderLocationCode: this.senderLocationCode,
+							senderLocationId: this.senderLocationId,
 							senderPostalCode: this.senderPostalCode,
 							senderPhoneAreaCode: this.senderPhoneAreaCode,
 							senderPhone: this.senderPhone,
