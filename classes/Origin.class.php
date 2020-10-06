@@ -54,15 +54,15 @@ class Origin {
 			$location['Id'] = $row['LocationsID'];
 			$location['Name'] = COMPANY_NAME;
 			$location['Company'] = COMPANY_NAME;
+			$location['LocationName'] = $row['StoreName'];
 			$location['StreetNumber'] = Address::getStreetNumber($row['SteetAddress']);
 			$location['StreetName'] = Address::getStreetName($row['SteetAddress']);
-			$location['City'] = Address::cleanCityName($row['ActualCityName']);
+			$location['City'] = Address::cleanCityName($row['City']);
 			$location['Province'] = $row['ProvinceCode'];
 			$location['Country'] = CP_COUNTRY_CODE;
 			$location['PostalCode'] = $row['PostalCode'];
-			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
-			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
-			$location['LocationName'] = $row['City'];
+			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['Phone']);
+			$location['Phone'] = Address::getPhone($row['Phone']);
 		}
 
 	    //Encode everything to UTF8
@@ -96,14 +96,15 @@ class Origin {
 			$location['Id'] = $row['LocationsID'];
 			$location['Name'] = COMPANY_NAME;
 			$location['Company'] = COMPANY_NAME;
+			$location['LocationName'] = $row['StoreName'];
 			$location['StreetNumber'] = Address::getStreetNumber($row['SteetAddress']);
 			$location['StreetName'] = Address::getStreetName($row['SteetAddress']);
-			$location['City'] = Address::cleanCityName($row['ActualCityName']);
+			$location['City'] = Address::cleanCityName($row['City']);
 			$location['Province'] = $row['ProvinceCode'];
 			$location['Country'] = CP_COUNTRY_CODE;
 			$location['PostalCode'] = $row['PostalCode'];
-			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['ShippingAccountPhone']);
-			$location['Phone'] = Address::getPhone($row['ShippingAccountPhone']);
+			$location['PhoneAreaCode'] = Address::getPhoneAreaCode($row['Phone']);
+			$location['Phone'] = Address::getPhone($row['Phone']);
 			$location['LocationName'] = $row['City'];
 		}
 

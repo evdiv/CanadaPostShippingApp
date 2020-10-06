@@ -37,6 +37,8 @@ define("CP_CUSTOMER_NUMBER", ""); // Your Canada Post Customer Number
 define("CP_ACCOUNT_NUMBER", ""); // Your Canada Post Account Number
 define("CP_AGREEMENT_NUMBER", ""); //Your Canada Post Agreement Number
 define("CP_CERT", "./cert/cacert.pem"); // Canada Post Digital Certificate
+define("CP_PAID_BY_CUSTOMER", CP_ACCOUNT_NUMBER);
+
 
 define("CP_USERNAME", ""); // Your Canada Post API Key
 define("CP_PASS", ""); //Your Canada Post API Password

@@ -99,8 +99,10 @@ class ReturnShipment {
 
         try {
             $this->response = $this->client->__soapCall('CreateAuthorizedReturn', $this->request, NULL, NULL);
-            $this->parseResponse($this->response);
-
+            if($this->response) {
+                $this->parseResponse($this->response);
+            }
+            
         } catch(Exception $e) {
 
             $this->errors[] = 'Fault Code: ' . trim($e->faultcode) . ' Msg: ' . trim($e->getMessage());

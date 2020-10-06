@@ -380,7 +380,7 @@ class Shipment {
 			$this->errors[] = "'Canada Post Tracking Code can not be empty'";
 		}
 
-		$result = $this->db->query("SELECT t.*, l.ActualCityName, l.SteetAddress, l.PostalCode, l.LocationsID  
+		$result = $this->db->query("SELECT t.*, l.City, l.SteetAddress, l.PostalCode, l.LocationsID  
 									FROM TrackingInfo AS t
 									LEFT JOIN Locations AS l ON t.LocationID = l.LocationsID
 									WHERE t.TrackingCode =  '" . $pin . "'
@@ -393,7 +393,7 @@ class Shipment {
 			$shipment['orderId'] = $row['OrderID'];
 			$shipment['service'] = $row['CourierService'];
 			$shipment['senderLocationId'] = $row['LocationsID'];
-			$shipment['senderCity'] = $row['ActualCityName'];
+			$shipment['senderCity'] = $row['City'];
 			$shipment['senderAddress'] = $row['SteetAddress'];
 			$shipment['senderPostalCode'] = $row['PostalCode'];
 			$shipment['label'] = $row['Label'];
@@ -417,7 +417,7 @@ class Shipment {
 			$this->errors[] = "'Canada Post Tracking Identifier can not be found'";
 		}
 
-		$result = $this->db->query("SELECT t.*, l.ActualCityName, l.SteetAddress, l.PostalCode, l.LocationsID  
+		$result = $this->db->query("SELECT t.*, l.City, l.SteetAddress, l.PostalCode, l.LocationsID  
 									FROM TrackingInfo AS t
 									LEFT JOIN Locations AS l ON t.LocationID = l.LocationsID
 									WHERE t.TrackingIdentifier =  '" . $shipmentId . "'
@@ -430,7 +430,7 @@ class Shipment {
 			$shipment['orderId'] = $row['OrderID'];
 			$shipment['service'] = $row['CourierService'];
 			$shipment['senderLocationId'] = $row['LocationsID'];
-			$shipment['senderCity'] = $row['ActualCityName'];
+			$shipment['senderCity'] = $row['City'];
 			$shipment['senderAddress'] = $row['SteetAddress'];
 			$shipment['senderPostalCode'] = $row['PostalCode'];
 			$shipment['label'] = $row['Label'];
