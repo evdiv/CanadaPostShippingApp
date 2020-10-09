@@ -213,15 +213,7 @@ if($jsonData['action'] == "getLocations") {
 		exit;
 	}
 
-	// Send to Customer
-    $SendMail = new SendMail;
-    $SendMail->SenderName  = SITE_NAME;
-    $SendMail->SenderEmail = ORDER_CONTACT;
-    $SendMail->Subject = "Return Shipment Label - " . $jsonData['receiverName'];
-    $SendMail->Body = nl2br($jsonData['receiverEmailBody']);
-    $SendMail->AddAttachments("./labels/" . $jsonData['pins'][0] . ".pdf");
-    $SendMail->AddRecipients($jsonData['receiverEmail'], $jsonData['receiverEmail']);
-	$emailSent = $SendMail->Send();  
+    $emailSent = (new SendMail($jsonData))->send();
 
 	echo json_encode(array('sent' => !!$emailSent));
 
