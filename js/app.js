@@ -56,6 +56,15 @@ var app = new Vue({
 					orders: [],
 					ordersDate: '',
 
+					//Search parameters
+					searchOrder: {},
+					orderIDSearch: '',
+					trackingNumberSearch: '',
+					packageReferenceSearch: '',
+					phoneNumberSearch: '',
+					customerNameSearch: '',
+					displaySearchResults: false,
+
 					//Completed Shipment Details
 					pins: [],
 					pdfLabels: [],
@@ -1139,8 +1148,154 @@ var app = new Vue({
 
 							self.handleErrors(response.data.errors); 
   						});
-					}
+					},
+
+
+					searchByOrderID: function() {
+
+						if(this.orderIDSearch.length === 0 || this.orderIDSearch === '0'){
+							this.errors = ['Order ID is empty']
+							return;
+						}
+
+						var self = this;
+						this.orders = [];
+						this.errors = [];
+						this.displayLoadShipmentSpinner = 1;
+
+						axios.post("", {
+							action: "searchByOrderID",
+							orderIDSearch: this.orderIDSearch
+						})
+						.then(function (response) {
+							self.displayLoadShipmentSpinner = 0;
+
+							if( response.data.errors.length === 0) {
+								self.orders = response.data.shipments;
+								self.displaySearchResults = true;
+
+								console.log(self.orders)
+								return true;
+							}
+							self.handleErrors(response.data.errors); 
+  						});
+					},
+
+
+					searchByTrackingNumber: function() { 
+						if(this.trackingNumberSearch.length === 0 || this.trackingNumberSearch === '0'){
+							this.errors = ['Tracking Number is empty']
+							return;
+						}
+
+						var self = this;
+						this.orders = [];
+						this.errors = [];
+						this.displayLoadShipmentSpinner = 1;
+
+						axios.post("", {
+							action: "searchByTrackingNumber",
+							trackingNumberSearch: this.trackingNumberSearch
+						})
+						.then(function (response) {
+							self.displayLoadShipmentSpinner = 0;
+
+							if( response.data.errors.length === 0) {
+								self.orders = response.data.shipments;
+								self.displaySearchResults = true;
+								return true;
+							}
+							
+							self.handleErrors(response.data.errors); 
+  						});
+					},
+
+
+					searchByPackageReference: function() {
+						if(this.packageReferenceSearch.length === 0){
+							this.errors = ['Package Reference is empty']
+							return;
+						}
+
+						var self = this;
+						this.orders = [];
+						this.errors = [];
+						this.displayLoadShipmentSpinner = 1;
+
+						axios.post("", {
+							action: "searchByPackageReference",
+							packageReferenceSearch: this.packageReferenceSearch
+						})
+						.then(function (response) {
+							self.displayLoadShipmentSpinner = 0;
+
+							if( response.data.errors.length === 0) {
+								self.orders = response.data.shipments;
+								self.displaySearchResults = true;
+								return true;
+							}
+							
+							self.handleErrors(response.data.errors); 
+  						});
+					},
+
+
+					searchByPhoneNumber: function() {
+						if(this.phoneNumberSearch.length === 0){
+							this.errors = ['Phone Number is empty']
+							return;
+						}
+
+						var self = this;
+						this.orders = [];
+						this.errors = [];
+						this.displayLoadShipmentSpinner = 1;
+
+						axios.post("", {
+							action: "searchByPhoneNumber",
+							phoneNumberSearch: this.phoneNumberSearch
+						})
+						.then(function (response) {
+							self.displayLoadShipmentSpinner = 0;
+
+							if( response.data.errors.length === 0) {
+								self.orders = response.data.shipments;
+								self.displaySearchResults = true;
+								return true;
+							}
+							
+							self.handleErrors(response.data.errors); 
+  						});
+					},
 					
+
+					searchByCustomerName: function() {
+						if(this.customerNameSearch.length === 0){
+							this.errors = ['Customer Name is empty']
+							return;
+						}
+
+						var self = this;
+						this.orders = [];
+						this.errors = [];
+						this.displayLoadShipmentSpinner = 1;
+
+						axios.post("", {
+							action: "searchByCustomerName",
+							customerNameSearch: this.customerNameSearch
+						})
+						.then(function (response) {
+							self.displayLoadShipmentSpinner = 0;
+
+							if( response.data.errors.length === 0) {
+								self.orders = response.data.shipments;
+								self.displaySearchResults = true;
+								return true;
+							}
+							
+							self.handleErrors(response.data.errors); 
+  						});
+					},
 				}
 			});
 

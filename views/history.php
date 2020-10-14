@@ -1,38 +1,38 @@
 <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
 
+	<div v-if="errors.length > 0" class='alert alert-danger'>
+        <div v-for="(err, index) in errors">
+            <span>Error: {{err}}</span>
+        </div>
+    </div>
+
 	<!-- Date Picker Form -->
+    <div class="row justify-content-end" style="padding: 24px 0">
+		<div class="col-sm-6"><small> Shipments for <b>{{ getDateForHumans }}</b> </small></div>
 
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class="input-group input-group-sm date" id="datetimepicker" data-target-input="nearest">
+                    <input type="text" 
+                    	class="form-control datetimepicker-input"
+                    	data-target="#datetimepicker" 
+                    	placeholder="Enter Date"
+                    	ref="dateField"
+                    	:value="ordersDate"/>
 
-		    <div class="row justify-content-end" style="padding: 24px 0">
-				<div class="col-sm-6"><small> Shipments for <b>{{ getDateForHumans }}</b> </small></div>
+                    <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		        <div class="col-sm-4">
-		            <div class="form-group">
-		                <div class="input-group input-group-sm date" id="datetimepicker" data-target-input="nearest">
-		                    <input type="text" 
-		                    	class="form-control datetimepicker-input"
-		                    	data-target="#datetimepicker" 
-		                    	placeholder="Enter Date"
-		                    	ref="dateField"
-		                    	:value="ordersDate"/>
+        <div class="col-sm-2">
+			<button type="button" class="btn btn-success btn-sm" @click="getOrders()"><i class="fa fa-refresh"></i> Update </button>
+        </div>
 
-		                    <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
-		                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-
-		        <div class="col-sm-2">
-					<button type="button" class="btn btn-success btn-sm" @click="getOrders()"><i class="fa fa-refresh"></i> Update </button>
-		        </div>
-
-		    </div>
-
+    </div>
 	<!--/ Date Picker Form -->
-	
-
-
 
 	
 	<table class="table table-hover table-sm" v-cloak>

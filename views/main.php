@@ -45,6 +45,10 @@
 						<li class="nav-item">
 						    <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">Manifests</a>
 						</li>
+
+						<li class="nav-item">
+						    <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="false">Search</a>
+						</li>
 					</ul>
  
 
@@ -61,6 +65,10 @@
 					  	<!-- List of Admin functions --->
 							<?php include('admin.php'); ?>
 					  	<!-- End list of Admin functions -->
+
+					  	<!-- Search Forms -->
+							<?php include('search.php'); ?>
+					  	<!-- Search Forms -->	
 
 					</div>
 

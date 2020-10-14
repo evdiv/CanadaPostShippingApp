@@ -341,9 +341,7 @@ class Shipment {
 									AND OrderID <> '0' 
 									AND TrackingCode <> '' 
 									AND DATE(DateAdded) = '" . $date . "'
-									GROUP BY TrackingCode 
 									ORDER BY DateAdded DESC");
-
 
 		if($result) {
 			while($row = $result->fetch_assoc()) {

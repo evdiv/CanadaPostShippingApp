@@ -37,6 +37,7 @@
 				<?php include "modals/print-manifest.php"; ?>
 				<?php include "modals/show-shipment.php"; ?>
 				<?php include "modals/create-return-shipment.php"; ?>
+				<?php include "modals/show-search-shipment.php"; ?>
 			<!--/ Modals -->
 
 			<!-- Main Content -->

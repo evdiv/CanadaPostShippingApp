@@ -261,6 +261,72 @@ if($jsonData['action'] == "getLocations") {
 
 
 //***************************************************
+// Search Shipments by OrderID
+
+} elseif($jsonData['action'] == "searchByOrderID") {
+
+	$Search = new Search();
+	echo json_encode(array(
+						'shipments' => $Search->getByOrderID($jsonData['orderIDSearch']), 
+						'errors' => $Search->errors
+					));
+	exit;
+
+
+//***************************************************
+// Search by Tracking Number
+
+} elseif($jsonData['action'] == "searchByTrackingNumber") {
+
+	$Search = new Search();
+	echo json_encode(array(
+						'shipments' => $Search->getByTrackingNumber($jsonData['trackingNumberSearch']), 
+						'errors' => $Search->errors
+					));
+	exit;
+
+
+//***************************************************
+// Search by Package Reference
+
+} elseif($jsonData['action'] == "searchByPackageReference") {
+
+	$Search = new Search();
+	echo json_encode(array(
+						'shipments' => $Search->getByPackageReference($jsonData['packageReferenceSearch']), 
+						'errors' => $Search->errors
+					));
+	exit;
+
+
+//***************************************************
+// Search by Phone Number
+
+} elseif($jsonData['action'] == "searchByPhoneNumber") {
+
+	$Search = new Search();
+	echo json_encode(array(
+						'shipments' => $Search->getByPhoneNumber($jsonData['phoneNumberSearch']), 
+						'errors' => $Search->errors
+					));
+	exit;
+
+
+
+//***************************************************
+// Search by Customer Name
+
+} elseif($jsonData['action'] == "searchByCustomerName") {
+
+	$Search = new Search();
+	echo json_encode(array(
+						'shipments' => $Search->getByCustomerName($jsonData['customerNameSearch']), 
+						'errors' => $Search->errors
+					));
+	exit;
+
+
+//***************************************************
 // By default display the index file
 
 } else {
