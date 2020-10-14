@@ -32,18 +32,15 @@
 					Shipment created: {{ shipmentCreated }}
 	
 					<span v-if="shipmentService !== ''">
-						<br/>Selected Service: {{ shipmentService }}
+						<br/>Selected Service: <b>{{ shipmentService }}</b>
 					</span>
 
-					<br/>Sender Location: 
-						<a target="_blank" :href="'https://manager.long-mcquade.com/Locations_Modify.php?action=edit&LocationsID=' + shipmentSenderId">
-							{{ shipmentSenderCity }}, {{ shipmentSenderAddress }}, {{ shipmentSenderPostalCode }}
-						</a>
+					<br/> Shipped To: <b>{{ shipmentReceiverName }}</b>
+					<br/>Address: <b>{{ shipmentReceiverAddress }}, {{ shipmentReceiverCity }}, {{ shipmentReceiverPostalCode }}</b>
 
-					<br/>Order ID: 
-						<a target="_blank" :href="'https://manager.long-mcquade.com/Orders_Modify.php?action=edit&OrdersID=' + shipmentOrderId">
-							{{ shipmentOrderId }}
-						</a>
+					<br/>Sender Location: <b>{{ shipmentSenderCity }}, {{ shipmentSenderAddress }}, {{ shipmentSenderPostalCode }}</b>
+
+					<br/>Order ID: <b>{{ shipmentOrderId }}</b>
 				</small>
 
 		    </div>

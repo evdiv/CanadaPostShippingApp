@@ -73,6 +73,10 @@ var app = new Vue({
 					shipmentCreated: '',
 					shipmentService: '',
 					shipmentOrderId: '',
+					shipmentReceiverName: '',
+					shipmentReceiverAddress: '',
+					shipmentReceiverCity: '',
+					shipmentReceiverPostalCode: '',
 					shipmentSenderAddress: '',
 					shipmentSenderCity: '',
 					shipmentSenderId: '',
@@ -828,6 +832,10 @@ var app = new Vue({
 								self.shipmentCreated = response.data.shipment.date;
 								self.shipmentService = response.data.shipment.service || '';
 								self.shipmentOrderId = response.data.shipment.orderId;
+								self.shipmentReceiverName = response.data.shipment.name || '';
+								self.shipmentReceiverAddress = response.data.shipment.address || '';
+								self.shipmentReceiverCity = response.data.shipment.city || '';
+								self.shipmentReceiverPostalCode = response.data.shipment.postalCode || '';
 								self.shipmentSenderAddress = response.data.shipment.senderAddress;
 								self.shipmentSenderCity = response.data.shipment.senderCity;
 								self.shipmentSenderId = response.data.shipment.senderLocationId;

@@ -248,6 +248,16 @@ class Shipment {
 		$locationID= !empty($this->incomingData['senderLocationId']) ? $this->incomingData['senderLocationId'] : '';
 		$serviceID = !empty($this->incomingData['serviceID']) ? $this->incomingData['serviceID'] : '';
 
+		$receiverName = !empty($this->incomingData['receiverName']) ? $this->incomingData['receiverName'] : '';
+		$receiverPhone = !empty($this->incomingData['receiverPhone']) ? $this->incomingData['receiverPhone'] : '';
+		$receiverCity = !empty($this->incomingData['receiverCity']) ? $this->incomingData['receiverCity'] : '';
+
+		$receiverAddress = !empty($this->incomingData['receiverStreetNumber']) ? $this->incomingData['receiverStreetNumber'] : ''; 
+		$receiverAddress .= !empty($this->incomingData['receiverStreetName']) ? ' ' . $this->incomingData['receiverStreetName'] : '';
+		$receiverAddress .= !empty($this->incomingData['receiverAddress2']) ? ", " . $this->incomingData['receiverAddress2'] : '';
+
+		$receiverPostalCode =  !empty($this->incomingData['receiverPostalCode']) ? $this->incomingData['receiverPostalCode'] : ''; 
+
 		$packageSQL = "";
 		$packageSQL .= !empty($this->package['length']) ? " Length = " . $this->package['length'] . ", " : "";
 		$packageSQL .= !empty($this->package['width']) ? " Width = " . $this->package['width'] . ", " : "";
@@ -264,6 +274,11 @@ class Shipment {
 							TrackingIdentifier = '" . $this->shipmentId . "', 
 							Label = '" . $this->label . ".pdf',
 							LocationID = '" . $locationID . "',  
+							Name = '" . $receiverName . "', 
+							Phone = '" . $receiverPhone . "', 
+							Address = '" . $receiverAddress . "', 
+							PostalCode = '" . trim($receiverPostalCode) . "', 
+							City = '" . $receiverCity . "', 
 							" . $packageSQL . "
 							CourierService = '" . $serviceID . "'");
 		return $this;		
@@ -350,6 +365,11 @@ class Shipment {
 
 					'Id' => $row['TrackingInfoID'],
 					'orderId' => $row['OrderID'],
+					'name' =>  $row['Name'],
+					'phone' => $row['Phone'],
+					'address' => $row['Address'],
+					'postalCode' => $row['PostalCode'],
+					'city' => $row['City'], 
 					'locationId' => isset($row['LocationsID']) ? $row['LocationsID'] : 0,
 					'shipmentId' => $row['TrackingIdentifier'],
 					'pin' => $row['TrackingCode'],
@@ -378,7 +398,7 @@ class Shipment {
 			$this->errors[] = "'Canada Post Tracking Code can not be empty'";
 		}
 
-		$result = $this->db->query("SELECT t.*, l.City, l.SteetAddress, l.PostalCode, l.LocationsID  
+		$result = $this->db->query("SELECT t.*, l.City AS StoreCity, l.SteetAddress AS StoreAddress, l.PostalCode AS StorePostalCode, l.LocationsID  
 									FROM TrackingInfo AS t
 									LEFT JOIN Locations AS l ON t.LocationID = l.LocationsID
 									WHERE t.TrackingCode =  '" . $pin . "'
@@ -389,11 +409,16 @@ class Shipment {
 
 			$shipment['date'] = $row['DateAdded'];
 			$shipment['orderId'] = $row['OrderID'];
+			$shipment['name'] =  $row['Name'];
+			$shipment['phone'] = $row['Phone'];
+			$shipment['address'] = $row['Address'];
+			$shipment['postalCode'] = $row['PostalCode'];
+			$shipment['city'] = $row['City']; 
 			$shipment['service'] = $row['CourierService'];
 			$shipment['senderLocationId'] = $row['LocationsID'];
-			$shipment['senderCity'] = $row['City'];
-			$shipment['senderAddress'] = $row['SteetAddress'];
-			$shipment['senderPostalCode'] = $row['PostalCode'];
+			$shipment['senderCity'] = $row['StoreCity'];
+			$shipment['senderAddress'] = $row['StoreAddress'];
+			$shipment['senderPostalCode'] = $row['StorePostalCode'];
 			$shipment['label'] = $row['Label'];
 			$shipment['voided'] = $row['Void'];
 		
@@ -415,7 +440,7 @@ class Shipment {
 			$this->errors[] = "'Canada Post Tracking Identifier can not be found'";
 		}
 
-		$result = $this->db->query("SELECT t.*, l.City, l.SteetAddress, l.PostalCode, l.LocationsID  
+		$result = $this->db->query("SELECT t.*, l.City AS StoreCity, l.SteetAddress AS StoreAddress, l.PostalCode AS StorePostalCode, l.LocationsID  
 									FROM TrackingInfo AS t
 									LEFT JOIN Locations AS l ON t.LocationID = l.LocationsID
 									WHERE t.TrackingIdentifier =  '" . $shipmentId . "'
@@ -426,11 +451,16 @@ class Shipment {
 
 			$shipment['date'] = $row['DateAdded'];
 			$shipment['orderId'] = $row['OrderID'];
+			$shipment['name'] =  $row['Name'];
+			$shipment['phone'] = $row['Phone'];
+			$shipment['address'] = $row['Address'];
+			$shipment['postalCode'] = $row['PostalCode'];
+			$shipment['city'] = $row['City']; 
 			$shipment['service'] = $row['CourierService'];
 			$shipment['senderLocationId'] = $row['LocationsID'];
-			$shipment['senderCity'] = $row['City'];
-			$shipment['senderAddress'] = $row['SteetAddress'];
-			$shipment['senderPostalCode'] = $row['PostalCode'];
+			$shipment['senderCity'] = $row['StoreCity'];
+			$shipment['senderAddress'] = $row['StoreAddress'];
+			$shipment['senderPostalCode'] = $row['StorePostalCode'];
 			$shipment['label'] = $row['Label'];
 			$shipment['voided'] = $row['Void'];
 		
