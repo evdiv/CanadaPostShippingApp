@@ -200,8 +200,6 @@ class Search {
 									OR t.Phone = '" . $phoneNumber . "' 
 									OR t.Phone = '" . $shortPhone . "' 
 									OR t.Phone = '" . $areaCodePhone . "') 
-									
-								GROUP BY t.TrackingCode
 								ORDER BY t.TrackingInfoID DESC");
 
 		$shipments = array();
@@ -258,7 +256,6 @@ class Search {
 								AND t.Void = 0 
 								AND t.TrackingCode <> '' 
 								AND LOWER(t.Name) = '" . strtolower($customerName) . "'
-								GROUP BY t.TrackingCode
 								ORDER BY t.TrackingInfoID DESC");
 
 		$shipments = array();

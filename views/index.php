@@ -38,6 +38,7 @@
 				<?php include "modals/show-shipment.php"; ?>
 				<?php include "modals/create-return-shipment.php"; ?>
 				<?php include "modals/show-search-shipment.php"; ?>
+				<?php include "modals/pickup-confirmation.php"; ?>
 			<!--/ Modals -->
 
 			<!-- Main Content -->

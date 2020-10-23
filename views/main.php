@@ -1,6 +1,5 @@
 
 	    <div class="container" style="margin-bottom: 1px;"> 
-
 	    	<div class="row" style="margin-top: 10px;">
 
 				<!-- Left Tab -->
@@ -21,7 +20,6 @@
 							<?php include('sender-form.php'); ?>					  
 					  	<!--/ Sender Form -->
 						
-
 					  	<!-- Receiver Form -->
 							<?php include('receiver-form.php'); ?>
 					  	<!--/ Receiver Form -->
@@ -47,6 +45,10 @@
 						</li>
 
 						<li class="nav-item">
+						    <a class="nav-link" id="pickup-tab" data-toggle="tab" href="#pickup" role="tab" aria-controls="pickup" aria-selected="false">Schedule PickUp</a>
+						</li>
+
+						<li class="nav-item">
 						    <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="false">Search</a>
 						</li>
 					</ul>
@@ -66,14 +68,15 @@
 							<?php include('admin.php'); ?>
 					  	<!-- End list of Admin functions -->
 
+					  	<!-- List of Scheduled PickUps --->
+							<?php include('pickup-form.php'); ?>
+					  	<!-- End list of Scheduled PickUps -->					  	
+
 					  	<!-- Search Forms -->
 							<?php include('search.php'); ?>
 					  	<!-- Search Forms -->	
 
 					</div>
-
 			    </div>
-
   			</div>
-
   		</div>

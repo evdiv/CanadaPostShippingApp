@@ -84,6 +84,15 @@ var app = new Vue({
 					shipmentVoided: 0,
 
 
+					//PickUp Service
+					pickUps: [],
+					pickUpDate: '',
+					anyTimeAfter: '12:00',
+					untilTime: '17:00',
+					pickUpTotalPieces: 1,
+					pickUpLocation: 'Use Back Door',
+
+
 					//Manifest
 					manifestDate: '',
 					manifestType: '',
@@ -185,11 +194,13 @@ var app = new Vue({
 						return moment(this.ordersDate);
 					},
 
+					getScheduledPickupDate: function() {
+						return moment(this.pickUpDate).format("YYYY-MM-DD");
+					},
 
 					setCurrentDate: function() {
 						this.ordersDate = moment().format('L');
 					},
-
 
 					getTotalWeight: function() {
 						var totalWeight = 0;
@@ -1304,6 +1315,74 @@ var app = new Vue({
 							self.handleErrors(response.data.errors); 
   						});
 					},
+
+					schedulePickUp: function(){
+						var self = this;
+
+						axios.post("", {
+
+							action: "schedulePickUp",
+							pickUpDate: this.getScheduledPickupDate(),
+							anyTimeAfter: this.anyTimeAfter,
+							untilTime: this.untilTime,
+							pickUpTotalPieces: this.pickUpTotalPieces,
+							pickUpLocation: this.pickUpLocation,
+						
+						}).then(function (response) {
+    						self.pickUps = response.data.pickups;
+    						self.handleErrors(response.data.errors); 
+
+							self.anyTimeAfter = '12:00';
+							self.untilTime = '17:00';
+							self.pickUpTotalPieces = 1;
+
+    						//Display confirmation modal
+    						if(response.data.confirmationNumber) {
+    							$('#pickupConfirmationModal').modal('show');
+    						}
+  						});
+					},
+
+					getSchedulePickUps: function(){ 
+						var self = this;
+
+						axios.post("", {
+
+							action: "getSchedulePickUps"
+						
+						}).then(function (response) {
+    						self.pickUps = response.data.pickups; 
+  						});
+					},
+
+					cancelSchedulePickUp: function(confirmationNumber){ 
+						var self = this;
+
+						axios.post("", {
+
+							action: "cancelSchedulePickUp",
+							confirmationNumber: confirmationNumber
+						
+						}).then(function (response) {
+    						self.pickUps = response.data.pickups; 
+    						self.handleErrors(response.data.errors); 
+  						});
+					},
+
+					pickTotalPiecesOnChangeHandler: function() {
+						this.pickUpTotalPieces = this.pickUpTotalPieces > 1 ? this.pickUpTotalPieces : 1;
+					},		
+
+					preferredTimeOnChangeHandler: function() {
+						this.anyTimeAfter = parseInt(this.anyTimeAfter) < 12 ? '12:00' : this.anyTimeAfter;
+						this.anyTimeAfter = parseInt(this.anyTimeAfter) > 16 ? '16:00' : this.anyTimeAfter;
+					},		
+
+					untilTimeOnChangeHandler: function() {
+						this.untilTime = parseInt(this.untilTime) > 17 ? '17:00' : this.untilTime;
+					}
+
+
 				}
 			});
 

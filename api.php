@@ -326,6 +326,47 @@ if($jsonData['action'] == "getLocations") {
 	exit;
 
 
+
+
+//***************************************************
+// Schedule PickUp
+
+} elseif($jsonData['action'] == "schedulePickUp") {
+
+	$PickUp = new PickUp($jsonData);
+	$confirmationNumber = $PickUp->createPickupRequest();
+
+	$PickUp->getSchedulledPickup();
+
+	echo json_encode(array(
+						'pickups' => $PickUp->schedulledPickUps, 
+						'confirmationNumber' => $confirmationNumber,
+						'errors' => $PickUp->errors 
+		));
+
+} elseif($jsonData['action'] == "getSchedulePickUps"){
+	
+	$PickUp = new PickUp($jsonData);
+	$PickUp->getSchedulledPickup();
+
+	echo json_encode(array(
+					'pickups' => $PickUp->schedulledPickUps,   
+					'errors' => $PickUp->errors 
+		));
+
+
+} elseif($jsonData['action'] == "cancelSchedulePickUp"){
+
+	$PickUp = new PickUp($jsonData);
+	$PickUp->cancelSchedulledPickup($jsonData['confirmationNumber']);
+	$PickUp->getSchedulledPickup();
+
+	echo json_encode(array(
+					'pickups' => $PickUp->schedulledPickUps,   
+					'errors' => $PickUp->errors 
+		));
+
+
 //***************************************************
 // By default display the index file
 

@@ -55,3 +55,5 @@ define("CP_SHIPMENT_URL", "https://" . CP_HOSTNAME . "/rs/soap/shipment/v8");
 define("CP_ARTIFACT_URL", "https://" . CP_HOSTNAME . "/rs/soap/artifact");
 define("CP_MANIFEST_URL", "https://" . CP_HOSTNAME . "/rs/soap/manifest/v8");
 define("CP_AUTHRETURN_URL", "https://" . CP_HOSTNAME . "/rs/soap/authreturn/v2");
+define("CP_PICKUP_AVAILABILITY_URL", "https://" . CP_HOSTNAME . "/ad/soap/pickup/availability");
+define("CP_PICKUP_REQUEST_URL", "https://" . CP_HOSTNAME . "/enab/soap/pickuprequest");
