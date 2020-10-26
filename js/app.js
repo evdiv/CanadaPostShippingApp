@@ -118,6 +118,7 @@ var app = new Vue({
 					printManifestId: '',
 					//end Admin
 
+					isImperial: false,
 					formsValidated: false,
 					errors: [],
 					confirmation: '',

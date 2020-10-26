@@ -2,65 +2,60 @@
 
 	<div class="alert alert-danger" role="alert">
 
-			<div class="form-group row">
-			    <label for="carrier" class="col-sm-4 col-form-label"> 
-			    	Carrier
-			    </label> 
+		<div class="form-group row">
+		    <label for="carrier" class="col-sm-4 col-form-label"> 
+		    	Carrier
+		    </label> 
 
-			    <div class="col-sm-8">
-			    	<div class="input-group input-group-sm">
-			      		<input type="text" class="form-control form-control-sm" id="carrier" value="Canada Post" readonly>
-					</div>
-			    </div>
-			</div>
+		    <div class="col-sm-8">
+		    	<div class="input-group input-group-sm">
+		      		<input type="text" class="form-control form-control-sm" id="carrier" value="Canada Post" readonly>
+				</div>
+		    </div>
+		</div>
 
 
-			<div class="form-group row">
-			    <label class="col-sm-4 col-form-label">Available Services  	
-			    	<div v-if="displayLoadServicesSpinner == 1" class="fa fa-spinner fa-spin"></div>
-			    	<span v-if="displayLoadServicesSpinner == 2">
-			    		<span @click="displayRates" 
-								data-toggle="modal" 
-								data-target="#ratesModal" class="fa fa-exclamation-circle"></span>
-			    	</span>
-			    </label>
+		<div class="form-group row">
+		    <label class="col-sm-4 col-form-label">Available Services  	
+		    	<div v-if="displayLoadServicesSpinner == 1" class="fa fa-spinner fa-spin"></div>
+		    	<span v-if="displayLoadServicesSpinner == 2">
+		    		<span @click="displayRates" 
+							data-toggle="modal" 
+							data-target="#ratesModal" class="fa fa-exclamation-circle"></span>
+		    	</span>
+		    </label>
 
-			    <div class="col-sm-8">
+		    <div class="col-sm-8">
 
-			    	<div class="input-group input-group-sm" v-cloak>
+		    	<div class="input-group input-group-sm" v-cloak>
 
-				    	<select class="form-control form-control-sm" v-model="selectedService">
-					      	<option v-for="service in availableServiceNames">{{ service.service_name }}</option>
-					    </select>
+			    	<select class="form-control form-control-sm" v-model="selectedService">
+				      	<option v-for="service in availableServiceNames">{{ service.service_name }}</option>
+				    </select>
 
-				      	<div class="input-group-append">
+			      	<div class="input-group-append">
 
-				      		<button class="btn btn-success" type="button" @click="getAvailableServices">
-				      			<i class="fa fa-refresh" aria-hidden="true"></i> Update
-				      		</button>
+			      		<button class="btn btn-success" type="button" @click="getAvailableServices">
+			      			<i class="fa fa-refresh" aria-hidden="true"></i> Update
+			      		</button>
 
-					  	</div>
-					</div>
+				  	</div>
+				</div>
 
-			    </div>
+		    </div>
 
-			    <div class="col-sm-4" v-if="courierSelected" v-cloak>
-			    	<small> Customer selected:</small>
-			    </div>
+		    <div class="col-sm-4" v-if="courierSelected" v-cloak>
+		    	<small> Customer selected:</small>
+		    </div>
 
-			    <div class="col-sm-8" v-if="courierSelected" v-cloak>
-			    	<small><b>{{ courierSelected }}</b> - <b>{{ courierService }}</b></small>
-			    </div>
+		    <div class="col-sm-8" v-if="courierSelected" v-cloak>
+		    	<small><b>{{ courierSelected }}</b> - <b>{{ courierService }}</b></small>
+		    </div>
 
-			</div>	
+		</div>	
 
 	</div>
 
-<!-- 	
-	<div class="alert alert-warning" role="alert" v-if="packages.length > 0">
-		<b>Canada Post API</b> does not support multiple packages per one Shipment
-	</div> 
--->
 
 	<div class="alert alert-primary" role="alert">
 
@@ -78,11 +73,18 @@
 				</div>
 
 		    </div>
-
 		</div>	
 
 		<hr/>
 
+		<div class="form-group row" style="margin: 0 0 6px;">
+			<span>Metric </span>
+			<label class="switch">
+				<input type="checkbox" class="form-control form-control-sm" value="false" v-model="isImperial">
+				<span class="slider round"></span>	
+			</label>
+			<span> Imperial</span>
+		</div>
 
 	  	<div class="form-group row" style="margin-bottom: 6px;">
 
