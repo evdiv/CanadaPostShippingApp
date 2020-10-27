@@ -672,6 +672,7 @@ var app = new Vue({
 							receiverCode: this.receiverCode, 
 							receiverName: this.receiverName, 
 							receiverCompany: this.receiverName, 
+							receiverAttentionTo: this.receiverAttentionTo, 
 							receiverStreetNumber: this.receiverStreetNumber, 
 							receiverStreetName: this.receiverStreetName, 
 							receiverAddress2: this.receiverAddress2, 

@@ -148,14 +148,21 @@ class Shipment {
 	private function populateDestination() {
 
 		$name = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverName']));
+		$attentionTo = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverAttentionTo']));
+
 		$address1 = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverStreetNumber'] . ' ' . $this->incomingData['receiverStreetName']));
 		$address2 = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverAddress2']));
 		$city = str_replace("&#39;", "'", Common::fixAccents($this->incomingData['receiverCity'])); 
 
 
+		if(!empty($attentionTo) && $attentionTo != $name) {
+			$company  =  $name;
+			$name = $attentionTo;
+		}
+
 		$destination = array(
 			'name' => $name,	
-			'company'			=> '',	
+			'company'			=> !empty($company) ? $company : '',	
 			'address-details'	=> array(
 				'address-line-1'	=> $address1,	
 				'address-line-2'	=> $address2,		

@@ -141,7 +141,7 @@ class Search {
 								ORDER BY t.TrackingInfoID DESC"); 
 
 		$shipments = array();
-		$error = 'Can not find Shipments for the Package Reference: ' . $trackingNumber;
+		$error = 'Can not find Shipments for the Package Reference: ' . $packageReference;
 
 		if(!$result) {
 			$this->errors[] = $error;
