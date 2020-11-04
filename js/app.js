@@ -222,6 +222,16 @@ var app = new Vue({
 						return lb.toFixed(2); 
 					},
 
+					convertInchesToCm: function(inches) {
+						var cm = (inches > 0) ? inches * 2.54 : 0;
+						return cm.toFixed(2);
+					},
+
+					convertLbsToKg: function(lb) {
+						var kg = (lb > 0) ? (lb * 1) / 2.2 : 0;
+						return kg.toFixed(2); 
+					},
+
 					constrainInputWeight: function(event) {
 						var weight = parseInt(event.target.value);
 						this.weight = (weight > 30) ? 30 : weight;

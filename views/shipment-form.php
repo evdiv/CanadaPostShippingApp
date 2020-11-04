@@ -77,10 +77,12 @@
 
 		<hr/>
 
-		<div class="form-group row" style="margin: 0 0 6px;">
+		<div class="form-group row" style="margin: 0 0 6px;" v-cloak>
 			<span>Metric </span>
 			<label class="switch">
-				<input type="checkbox" class="form-control form-control-sm" value="false" v-model="isImperial">
+				<input type="checkbox" 
+					class="form-control form-control-sm"  
+					v-model="isImperial">
 				<span class="slider round"></span>	
 			</label>
 			<span> Imperial</span>
@@ -88,36 +90,94 @@
 
 	  	<div class="form-group row" style="margin-bottom: 6px;">
 
-	  		<div class="col-sm-4" style="font-size: 0.8rem;" v-cloak>{{ lengthInches }} inches</div>
-	  		<div class="col-sm-4" style="font-size: 0.8rem;" v-cloak>{{ widthInches }} inches</div>
-	  		<div class="col-sm-4" style="font-size: 0.8rem;" v-cloak>{{ heightInches }} inches</div>
+			<!-- Package Length Label -->
+	  		<div class="col-sm-4" style="font-size: 0.8rem;" v-cloak>
+	  			<span v-if="isImperial">{{ length ? length : '0.00' }} cm</span>
+	  			<span v-else>{{ lengthInches }} inches</span>
+	  		</div>
+
+			<!-- Package Width Label -->
+	  		<div class="col-sm-4" style="font-size: 0.8rem;" v-cloak>
+	  			<span v-if="isImperial">{{ width ? width : '0.00' }} cm</span>
+	  			<span v-else>{{ widthInches }} inches</span>
+	  		</div>
+
+			<!-- Package Height Label -->
+	  		<div class="col-sm-4" style="font-size: 0.8rem;" v-cloak>
+	  			<span v-if="isImperial">{{ height ? height : '0.00' }} cm</span>
+	  			<span v-else>{{ heightInches }} inches</span>
+	  		</div>
 
 
-		    <div class="col-sm-4">
+	  		<!-- Package Length -->
+		    <div class="col-sm-4" v-cloak>
 		    	<div class="input-group input-group-sm">
-		      		<input type="number" class="form-control form-control-sm" placeholder="Length" value="" v-model="length" min="0">
+
+					<input v-if="isImperial" 
+						type="number" 
+						class="form-control form-control-sm" 
+						placeholder="Length" 
+						:value="lengthInches" 
+						@change="length = convertInchesToCm($event.target.value)"
+						min="0">
+
+		      		<input v-else 
+		      			type="number" 
+		      			class="form-control form-control-sm" 
+		      			placeholder="Length" 
+		      			v-model="length" 
+		      			min="0">
+
 			      	<div class="input-group-append">
-	    				<span class="input-group-text">cm</span>
+	    				<span class="input-group-text">{{ isImperial ? 'in' : 'cm'}}</span>
 				  	</div>
 				</div>
 		    </div>
 
-
-		    <div class="col-sm-4">
+		    <!-- Package Width -->
+		    <div class="col-sm-4" v-cloak>
 		    	<div class="input-group input-group-sm">
-		      		<input type="number" class="form-control form-control-sm" placeholder="Width" value="" v-model="width"  min="0">
+					<input v-if="isImperial" 
+						type="number" 
+						class="form-control form-control-sm" 
+						placeholder="Width" 
+						:value="widthInches" 
+						@change="width = convertInchesToCm($event.target.value)"
+						min="0">
+
+		      		<input v-else 
+		      			type="number" 
+		      			class="form-control form-control-sm" 
+		      			placeholder="Width" 
+		      			v-model="width"
+		      			min="0">
+			      	
 			      	<div class="input-group-append">
-	    				<span class="input-group-text">cm</span>
+	    				<span class="input-group-text">{{ isImperial ? 'in' : 'cm'}}</span>
 				  	</div>
 				</div>
 		    </div>
 
-
-		    <div class="col-sm-4">
+		   	<!-- Package Height -->
+		    <div class="col-sm-4" v-cloak>
 		    	<div class="input-group input-group-sm">
-		      		<input type="number" class="form-control form-control-sm" placeholder="Height" value="" v-model="height"  min="0">
+					<input v-if="isImperial" 
+						type="number" 
+						class="form-control form-control-sm" 
+						placeholder="Height" 
+						:value="heightInches" 
+						@change="height = convertInchesToCm($event.target.value)"
+						min="0">
+
+		      		<input v-else 
+		      			type="number" 
+		      			class="form-control form-control-sm" 
+		      			placeholder="Height" 
+		      			v-model="height"
+		      			min="0">
+			      	
 			      	<div class="input-group-append">
-	    				<span class="input-group-text">cm</span>
+	    				<span class="input-group-text">{{ isImperial ? 'in' : 'cm'}}</span>
 				  	</div>
 				</div>
 		    </div>
@@ -128,14 +188,32 @@
 
 		<div class="form-group row" style="margin-bottom: 6px;">
 
-			<div class="col-sm-12" style="font-size: 0.8rem;" v-cloak>{{ weightLbs }} lbs</div>
+			<!-- Package Weight Label -->
+			<div class="col-sm-12" style="font-size: 0.8rem;" v-cloak>
+				<span v-if="isImperial">{{ weight ? weight : '0.00' }} kg</span>
+	  			<span v-else>{{ weightLbs }} lbs</span>
+			</div>
 
-
-		    <div class="col-sm-12">
+			<!-- Package Weight -->
+		    <div class="col-sm-12" v-cloak>
 		    	<div class="input-group input-group-sm">
-		      		<input type="number" class="form-control form-control-sm" id="weight" placeholder="Weight" value="" v-model="weight"  min="0">
+					<input v-if="isImperial" 
+						type="number" 
+						class="form-control form-control-sm" 
+						placeholder="Weight" 
+						:value="weightLbs" 
+						@change="weight = convertLbsToKg($event.target.value)"
+						min="0">
+
+		      		<input v-else 
+		      			type="number" 
+		      			class="form-control form-control-sm" 
+		      			placeholder="Weight" 
+		      			v-model="weight"
+		      			min="0">
+
 			      	<div class="input-group-append">
-	    				<span class="input-group-text">kg</span>
+	    				<span class="input-group-text">{{ isImperial ? 'lbs' : 'kg'}}</span>
 				  	</div>
 				</div>
 		    </div>
