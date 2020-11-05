@@ -10,6 +10,10 @@ class Common
 		exit;
 	}
 
+	public static function areCredentialsPopulated() {
+		return (empty(CP_USERNAME) || empty(CP_PASS) || empty(CP_CUSTOMER_NUMBER) || empty(CP_AGREEMENT_NUMBER)) ? false : true;
+	}
+
 	public static function fixAccents($string) {
 
 	    $chars = [

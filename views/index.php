@@ -29,6 +29,15 @@
 				<?php include "top-navbar.php"; ?>
 			<!--/ Top Navigation -->
 
+
+				<?php if(CanadaPost\Common::areCredentialsPopulated()): ?>
+					<!-- Canada Post Configuration Error -->
+						<?php include "./views/config-error.php"; ?>
+					<!--/Canada Pos Configuration Error -->
+				<? endif;?>
+
+
+
 			<!-- Modals -->
 				<?php include "modals/get-rates.php"; ?>
 				<?php include "modals/create-shipment.php"; ?>
