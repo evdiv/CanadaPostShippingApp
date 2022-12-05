@@ -3,13 +3,14 @@
 //*************************************
 //Main Configuration
 
-define("DOMAIN", "https://companyname.com");
+define("HOST_NAME", $_SERVER['SERVER_NAME']);
+define("DOMAIN", "https://" . HOST_NAME);
 define("APP_NAME", "Canada Post Web Client");
 define("APP_URL", DOMAIN . "/canada_post"); 
 define("APP_PATH", __DIR__);
 define("COMPANY_NAME", "Your Company Name");
 define("DEFAULT_LOCATION_ID", "1"); 
-define("ORDER_CONTACT", "email@yourdomain.com");
+define("ORDER_CONTACT", "contact@" . HOST_NAME);
 
 
 //************************************
